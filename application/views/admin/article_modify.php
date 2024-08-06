@@ -1,51 +1,45 @@
 <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <form method="post" id="articleForm">
-        <input type="hidden" name="id" id="id" value="<?php echo $data['id']?>">
+        <input type="hidden" name="id" id="id" value="<?php echo $info['idx']?>">
         <div>
             <h4>대분류 카테고리</h4>
-            <select name="category" id="category">
-                <option value="104" <?php if($data['category']=='104') echo "selected"; ?>>DONGNAE</option>
-                <option value="105" <?php if($data['category']=='105') echo "selected"; ?>>CREATOR</option>
+            <select name="category1" id="category1">
+                <?php foreach($category1 as $item):?>
+                    <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category1']) ? "selected" : ""?>><?php echo $item['name']?></option>
+                <?php endforeach; ?>
             </select>
 
             <hr>
 
             <h4>소분류 카테고리</h4>
-            <select name="category_sub" id="category_sub">
-                <option value="106" <?php if($data['category_sub']=='106') echo "selected"; ?>>FOOD</option>
-                <option value="107" <?php if($data['category_sub']=='107') echo "selected"; ?>>BOOK</option>
-                <option value="108" <?php if($data['category_sub']=='108') echo "selected"; ?>>CAFE</option>
-                <option value="109" <?php if($data['category_sub']=='109') echo "selected"; ?>>STAY</option>
-                <option value="110" <?php if($data['category_sub']=='110') echo "selected"; ?>>EXPERIENCE</option>
-                <option value="111" <?php if($data['category_sub']=='111') echo "selected"; ?>>DESIGN</option>
-                <option value="112" <?php if($data['category_sub']=='112') echo "selected"; ?>>TREND</option>
-                <option value="113" <?php if($data['category_sub']=='113') echo "selected"; ?>>PHOTO</option>
-                <option value="114" <?php if($data['category_sub']=='114') echo "selected"; ?>>VIDEO</option>
-                <option value="115" <?php if($data['category_sub']=='115') echo "selected"; ?>>SPACE</option>
+            <select name="category2" id="category2">
+                <?php foreach($category2 as $item):?>
+                    <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category2']) ? "selected" : ""?>><?php echo $item['name']?></option>
+                <?php endforeach; ?>
             </select>
 
             <hr>
 
             <h4>제목</h4>
-                <input type="text" name="title" id="title" value="<?php echo $data['title'];?>">
+                <input type="text" name="title" id="title" value="<?php echo $info['title'];?>">
 
             <hr>
 
             <h4>대표 이미지</h4>
-                <input type="hidden" id="thumbnail_id" value="<?php echo $data['thumbnail_id'];?>">
+                <input type="hidden" id="thumbnail" value="<?php echo get_article_upload_path().$info['thumbnail'];?>">
                 <input type="file" name="thumbnail" id="thumbnail">
 
             <hr>
 
             <h5>현재 대표이미지</h5>
-            <p><?php echo base_url($data['thumbnail_url']);?></p>
-            <img src="<?php echo base_url($data['thumbnail_url']);?>">
+            <p><?php echo $info['thumbnail'];?></p>
+            <img src="<?php echo base_url(get_article_upload_path().$info['thumbnail']);?>">
 
             <hr>
 
             <h4>본문</h4>
             <!-- 에디터 -->
-                <textarea id="summernote" name="content" value="<?php echo $data['content'];?>"></textarea>
+                <textarea id="summernote" name="content"><?php echo $info['content'];?></textarea>
         </div>
         <button type="button" id="submitBtn">저장</button>
     </form>

@@ -7,6 +7,7 @@
             <tr>
                 <th scope="col">no.</th>
                 <th scope="col">제목</th>
+                <th scope="col">정렬순서</th>
                 <th scope="col">카테고리</th>
                 <th scope="col">작성일</th>
                 <th scope="col">수정</th>
@@ -14,13 +15,14 @@
             </thead>
             <tbody>
             <?php if (!empty($list)): ?>
-            <?php foreach ($list as $list): ?>
+            <?php foreach ($list as $key => $value): ?>
                 <tr>
-                    <td><?php echo $list['ID']; ?></td>
-                    <td><?php echo $list['post_title']; ?></td>
-                    <td><?php echo $list['category']?></td>
-                    <td><?php echo $list['post_date']; ?></td>
-                    <td><button click="" >수정</button></td>
+                    <td><?php echo $key+1; ?></td>
+                    <td><?php echo $value['ta_title']; ?></td>
+                    <td><?php echo $value['ta_sort']; ?></td>
+                    <td><?php echo $value['tc_name']?></td>
+                    <td><?php echo $value['ta_regdate']; ?></td>
+                    <td><button onclick="location.href='article/modify?id=<?php echo $value['ta_idx']?>'">수정</button></td>
                 </tr>
             <?php endforeach; ?>
             <?php else: ?>
@@ -32,3 +34,7 @@
         </table>
     </div>
 </div>
+
+</main>
+</body>
+</html>
