@@ -30,4 +30,10 @@ class Main extends CI_Controller {
 
 		$this->load->view('main.php',$data);
 	}
+
+	public function articleDetail() {
+		$data = array();
+
+		$this->load->view('articleDetail.php',$data);
+	}
 }

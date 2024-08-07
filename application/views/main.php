@@ -58,7 +58,7 @@
                 <div class="article-slide">
                   <div class="element swiper-wrapper">
                     <?php foreach($article_creator as $list):?>
-                    <div class="element-2 swiper-slide">
+                    <div class="element-2 swiper-slide" onclick="articleDetail()" style="cursor:pointer;">
                       <img src="<?php echo get_article_upload_path().$list['thumbnail'];?>" />
                       <p class="text-wrapper"><?php echo $list['title']?></p>
                       <div class="text-wrapper-2"><?php echo $list['name']?></div>
@@ -123,6 +123,12 @@
     </div>
   </div>
 <?php include_once("layout/footer.php")?>
+
+<script>
+  function articleDetail() {
+    location.href = "/main/articleDetail";
+  }
+</script>
 </body>
 
 </html>
