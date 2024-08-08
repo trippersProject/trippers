@@ -28,13 +28,6 @@ class Article extends CI_Controller {
 		$this->load->view('admin/article_list.php', $data);
 	}
 
-	public function apply()
-	{	
-		$this->load->view('layout/header.php');
-		$this->load->view('article_apply.php');
-		$this->load->view('layout/footer.php');
-	}
-
 	//작성글 저장
 	public function apply_article()
 	{	
@@ -47,8 +40,10 @@ class Article extends CI_Controller {
 	//본문 첨부 이미지 저장
 	public function upload_image() {
         if ($_FILES['file']['name']) {
-            $config['upload_path'] = 'uploads/article';
+            $config['upload_path'] =  "images/article/";
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['file_name']     = $this->generate_unique_filename(); // 파일명 생성 함수 호출
+            $config['overwrite']     = TRUE; // 기존 파일 덮어쓰기
             //$config['max_size'] = 2048; // 2MB
 
             $this->load->library('upload', $config);
@@ -58,11 +53,28 @@ class Article extends CI_Controller {
                 echo json_encode(['error' => $error]);
             } else {
                 $data = $this->upload->data();
-                $file_path = base_url('uploads/article/' . $data['file_name']);
+                $file_path = base_url("images/article/".$data['file_name']);
                 echo $file_path;
             }
         }
     }
+
+    private function generate_unique_filename() {
+        // 현재 시간과 랜덤 숫자를 조합하여 고유한 파일명 생성
+        return date('YmdHis') . '_' . rand(1000, 9999);
+    }
+
+    //글 등록화면 이동
+	public function apply()	
+	{	
+        $data = array();
+
+        $data['category1'] = $this->article_mdl->get_category_list('P');
+        $data['category2'] = $this->article_mdl->get_category_list('S');
+
+        $this->load->view('admin/layout/header.php');
+        $this->load->view('admin/article_apply.php', $data);
+	}
 
 	//작성글 수정화면 이동
 	public function modify()	
@@ -90,101 +102,110 @@ class Article extends CI_Controller {
 
 		}else{
 			$result['msg'] = "조회된 정보가 없습니다";
-            json_encode($result);
+            echo json_encode($result);
             exit;
 		}
 	}
 
-	//작성글 수정
-	public function update_article() {
-        if ($this->input->is_ajax_request()) {
+	//작성글 등록,수정
+	public function regi_article() {
+        $result = array();
+
+        if ($this->input->is_ajax_request()) 
+        {
             // POST 데이터 받기
-            $id = $this->input->post('id', TRUE);
+            $id = $this->input->post('id', FALSE);
             $title = $this->input->post('title', TRUE);
+            $tag = $this->input->post('tag', TRUE);
             $content = $this->input->post('content', FALSE);  // XSS 필터링하지 않음
-            $category = $this->input->post('category', TRUE);
-            $category_sub = $this->input->post('category_sub', TRUE);
+            $category1 = $this->input->post('category1', TRUE); //대분류카테고리
+            $category2 = $this->input->post('category2', TRUE); //소분류 카테고리
+            $c_id = $this->input->post('c_id', TRUE);        
+            
+            $article = $this->article_mdl->get_article_info($id);
+
+            if(empty($article) && $id != ''){
+                $result['msg'] = "조회된 정보가 없습니다.";
+                echo json_encode($result);
+                exit;
+            }
 
             // 대표 이미지 업로드 처리
-            $thumbnail_id = 0;
-            if (!empty($_FILES['thumbnail']['name'])) {
-                $config['upload_path'] = './uploads/';
+            $thumbnail_file = null;
+            if (!empty($_FILES['thumbnail']['name'])) 
+            { 
+                $config['upload_path'] = 'images/article/';
                 $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['file_name']     = $this->generate_unique_filename(); // 파일명 생성 함수 호출
+                $config['overwrite']     = TRUE; // 기존 파일 덮어쓰기
                 //$config['max_size'] = 2048; // 2MB
 
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('thumbnail')) {
+
                     $data = $this->upload->data();
-                    $file_path = 'uploads/' . $data['file_name'];
 
-                    // 첨부 파일로 저장
-                    $attachment = array(
-                        'post_title' => $data['file_name'],
-                        'post_content' => '',
-                        'post_status' => 'inherit',
-                        'post_mime_type' => $data['file_type'],
-                        'guid' => base_url($file_path),
-                        'post_type' => 'attachment',
-                        'post_date' => date('Y-m-d H:i:s'),
-                        'post_date_gmt' => gmdate('Y-m-d H:i:s')
-                    );
+                    $thumbnail_file = $data['file_name'];
 
-                    $this->db_wp->insert('wp_posts', $attachment);
-                    $thumbnail_id = $this->db_wp->insert_id();
-
-                    // 첨부 파일 메타 데이터 저장
-                    $metadata = array(
-                        'post_id' => $thumbnail_id,
-                        'meta_key' => '_wp_attached_file',
-                        'meta_value' => $file_path
-                    );
-                    $this->db_wp->insert('wp_postmeta', $metadata);
                 } else {
-                    $error = $this->upload->display_errors();
-                    $this->output->set_status_header(400);
-                    echo json_encode(['error' => $error]);
+                    $result['msg'] = "이미지 업로드에 실패하였습니다";
+                    echo json_encode($result);
                     return;
                 }
             }
-
-            // 데이터베이스에 저장
-            $data = array(
-				'post_title' => $title,
-				'post_content' => $content,
-				'post_modified' => date('Y-m-d H:i:s'),
-				'post_modified_gmt' => gmdate('Y-m-d H:i:s')
-			);
-	
-			$this->db_wp->where('ID', $id);
-			$this->db_wp->update('wp_posts', $data);
-	
-			// 대분류 카테고리 업데이트
-			$this->db_wp->where('object_id', $id);
-			$this->db_wp->where('term_taxonomy_id !=', $category_sub);
-			$this->db_wp->update('wp_term_relationships', array('term_taxonomy_id' => $category), array('term_taxonomy_id' => $category));
-	
-			// 소분류 카테고리 업데이트
-			$this->db_wp->where('object_id', $id);
-			$this->db_wp->where('term_taxonomy_id !=', $category);
-			$this->db_wp->update('wp_term_relationships', array('term_taxonomy_id' => $category_sub), array('term_taxonomy_id' => $category_sub));
-	
-			// 메타 데이터 업데이트 (대표 이미지)
-			if ($thumbnail_id > 0) {
-				$this->db_wp->where('post_id', $id);
-				$this->db_wp->where('meta_key', '_thumbnail_id');
-				$this->db_wp->update('wp_postmeta', array('meta_value' => $thumbnail_id));
-			}
-
-            if ($this->db_wp->affected_rows() > 0) {
-                echo json_encode(['success' => '저장되었습니다', 'post_id' => $id]);
-            } else {
-                $this->output->set_status_header(500);
-                echo json_encode(['error' => '저장에 실패하였습니다']);
+            else
+            {
+                $thumbnail_file = $article['thumbnail'];
             }
-        } else {
-            show_error('No direct script access allowed', 403);
+
+            //데이터베이스에 저장
+            $data = array(
+                'c_id'       => $title,
+                'category1'  => $category1,
+                'category2'  => $category2,
+                'tag'        => $tag,
+                'thumbnail'  => $thumbnail_file,
+                'title'      => $title,
+                'content'    => $content,
+                'sort'       => 1,
+                'regdate'    => date('Y-m-d H:i:s'),
+            );
+            //id값 있으면 update
+            if(!empty($id))
+            {
+
+                $res = $this->article_mdl->update_articles($id, $data);
+
+                if($res)
+                {
+                    $result['msg'] = "수정되었습니다";
+                }
+                else
+                {
+                    $result['msg'] = "수정 실패하였습니다";
+                }
+            }
+            //id값 없으면 insert
+            else
+            {
+                $res = $this->article_mdl->insert_articles($data);
+
+                if($res)
+                {
+                    $result['msg'] = "저장되었습니다";
+                }
+                else
+                {
+                    $result['msg'] = "저장 실패하였습니다";
+                }
+            }
+        }else{
+            $result['msg'] = "입력된 정보가 없습니다.";
         }
+
+        echo json_encode($result);
+        exit;
     }
 
 	public function main(){

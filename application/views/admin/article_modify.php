@@ -1,9 +1,12 @@
-<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<div class="col-md-9 ms-sm-auto col-lg-10 p-md-4">
+    <h5>작성글 관리 > 글 수정</h5>
+    <hr/>
+    <br/>
     <form method="post" id="articleForm">
         <input type="hidden" name="id" id="id" value="<?php echo $info['idx']?>">
         <div>
             <h4>대분류 카테고리</h4>
-            <select name="category1" id="category1">
+            <select name="category1" id="category1" class="form-control w-25">
                 <?php foreach($category1 as $item):?>
                     <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category1']) ? "selected" : ""?>><?php echo $item['name']?></option>
                 <?php endforeach; ?>
@@ -12,7 +15,8 @@
             <hr>
 
             <h4>소분류 카테고리</h4>
-            <select name="category2" id="category2">
+            <select name="category2" id="category2" class="form-control w-25">
+                <option value=''>---선택---</option>
                 <?php foreach($category2 as $item):?>
                     <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category2']) ? "selected" : ""?>><?php echo $item['name']?></option>
                 <?php endforeach; ?>
@@ -20,20 +24,34 @@
 
             <hr>
 
-            <h4>제목</h4>
-                <input type="text" name="title" id="title" value="<?php echo $info['title'];?>">
+            <h4>크리에이터(크리에이터 글일 경우에만 선택)</h4>
+            <select name="c_id" id="c_id" class="form-control w-25">
+                <?php /*foreach($category2 as $item):?>
+                    <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category2']) ? "selected" : ""?>><?php echo $item['name']?></option>
+                <?php endforeach; */?>
+                <option value='1'>테스트크리에이터</option>
+            </select>
 
+            <hr>
+
+            <h4>제목</h4>
+                <input type="text" name="title" id="title" class="form-control" value="<?php echo $info['title'];?>">
+            <hr>
+
+            <h4>태그 ( '#' 으로 구분)</h4>
+                <input type="text" name="tag" id="tag" class="form-control w-25" value="<?php echo $info['tag'];?>">
             <hr>
 
             <h4>대표 이미지</h4>
-                <input type="hidden" id="thumbnail" value="<?php echo get_article_upload_path().$info['thumbnail'];?>">
-                <input type="file" name="thumbnail" id="thumbnail">
+                <input type="file" name="thumbnail" id="thumbnail" class="form-control w-25">
 
             <hr>
 
-            <h5>현재 대표이미지</h5>
-            <p><?php echo $info['thumbnail'];?></p>
-            <img src="<?php echo base_url(get_article_upload_path().$info['thumbnail']);?>">
+            <div class="container mt-5">
+                <h5>현재 대표 이미지</h5>
+                <p><?php echo $info['thumbnail'];?></p>
+                <img src="<?php echo base_url(get_article_upload_path().$info['thumbnail']);?>" class="img-fluid" style="max-width: 30%;">
+            </div>
 
             <hr>
 
@@ -41,7 +59,10 @@
             <!-- 에디터 -->
                 <textarea id="summernote" name="content"><?php echo $info['content'];?></textarea>
         </div>
-        <button type="button" id="submitBtn">저장</button>
+        <br/>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="button" id="submitBtn" class="btn btn-primary btn-lg">수정</button>
+        </div>
     </form>
 </div>
 <script>
@@ -105,7 +126,7 @@
         var data = new FormData();
         data.append("file", file);
         $.ajax({
-            url: '<?php echo base_url('index.php/article/upload_image'); ?>',
+            url: '/admin/article/upload_image',
             cache: false,
             contentType: false,
             processData: false,
@@ -125,20 +146,28 @@
         var formData = new FormData();
         formData.append('id', $('#id').val());
         formData.append('title', $('#title').val());
+        formData.append('tag', $('#tag').val());
         formData.append('content', $('#summernote').val());
-        formData.append('category', $('#category').val());
-        formData.append('category_sub', $('#category_sub').val());
-        formData.append('thumbnail', $('#thumbnail')[0].files[0]);
+        formData.append('category1', $('#category1').val());
+        if($('#category2').val()){  
+            formData.append('category2', $('#category2').val());
+        }
+        if($('#c_id').val()){
+            formData.append('c_id', $('#c_id').val());
+        }
+        if($('#thumbnail').val()){
+            formData.append('thumbnail', $('#thumbnail')[0].files[0]);
+        }
 
         $.ajax({
-            url: '<?php echo base_url('index.php/article/update_article'); ?>',
+            url: '/admin/article/regi_article',
             type: 'POST',
             data: formData,
             contentType: false,
             processData: false,
             success: function(response) {
-                alert('저장되었습니다');
-                window.location.href = '<?php echo base_url('index.php/article'); ?>';
+                alert(response.msg);
+                window.location.href = '/admin/article';
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
