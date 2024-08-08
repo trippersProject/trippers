@@ -2,10 +2,19 @@
 <link rel="stylesheet" href="assets/css/globals.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
 <body>
-  <div class="PC">
-    <div class="div">
-      <img class="image" src="https://c.animaapp.com/IWpl16yO/img/--@3x.png" />
-      <img class="img" src="https://c.animaapp.com/IWpl16yO/img/------@3x.png" />
+  <div class="main-container">
+    <div class="main-contents">
+      <!-- menu -->
+      <div class="header-menu">
+        <div class="header-menu-all-area">
+          <img class="header-menu-all-area-logo" src="https://c.animaapp.com/IWpl16yO/img/-----1@2x.png" />
+          <div class="header-menu-all-area-text">Menu</div>
+        </div>
+      </div>
+      <!-- 상담 검색, 로그인 아이콘 -->
+      <img class="user" src="https://c.animaapp.com/IWpl16yO/img/user.svg" onclick="location.href='login'" style="cursor: pointer"/>
+      <img class="search" src="https://c.animaapp.com/IWpl16yO/img/search.svg" />
+
       <div class="overlap">
         <div class="view">
           <!--하단 이번주 우리동네 글목록 슬라이드-->
@@ -98,12 +107,12 @@
         </div>
         <!--상단슬라이드/-->
       </div>
-      <div class="view-4">
-        <div class="view-5">
-          <img class="element-10" src="https://c.animaapp.com/IWpl16yO/img/-----1@2x.png" />
-          <div class="text-wrapper-14">Menu</div>
-        </div>
-      </div>
+
+      <!-- FIND아이템 이미지 표시 영역 -->
+      <img class="image" src="https://c.animaapp.com/IWpl16yO/img/--@3x.png" />
+      <!-- 메일 구독 이미지 영역 -->
+      <img class="img" src="https://c.animaapp.com/IWpl16yO/img/------@3x.png" />
+
       <!--하단기업정보-->
       <div class="view-6">
         <img class="b" src="https://c.animaapp.com/IWpl16yO/img/-----b-1@2x.png" />
@@ -118,8 +127,6 @@
         <div class="rectangle-5"></div>
       </div>
       <!--하단기업정보/-->
-      <img class="user" src="https://c.animaapp.com/IWpl16yO/img/user.svg" onclick="location.href='login'" style="cursor: pointer"/>
-      <img class="search" src="https://c.animaapp.com/IWpl16yO/img/search.svg" />
     </div>
   </div>
 <?php include_once("layout/footer.php")?>
