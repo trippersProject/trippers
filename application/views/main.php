@@ -114,7 +114,7 @@
       <?php include_once("layout/footer_company_info.php")?>
     </div>
   </div>
-<?php include_once("layout/footer.php")?>
+<?php include_once("layout/footer_script.php")?>
 
 <script>
   function articleDetail() {
