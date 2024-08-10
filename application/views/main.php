@@ -33,15 +33,15 @@
 
           <div class="creator-suggestion-slide-area">
             <div class="article-slide">
-              <div class="element swiper-wrapper">
+              <div class="article-swiper swiper-wrapper">
                 <?php foreach($article_creator as $list):?>
-                <div class="element-2 swiper-slide">
+                <div class="article-swiper-contents swiper-slide">
                   <img src="<?php echo get_article_upload_path().$list['thumbnail'];?>" />
-                  <p class="text-wrapper"><?php echo $list['title']?></p>
-                  <div class="text-wrapper-2"><?php echo $list['name']?></div>
-                  <div class="overlap-group">
-                    <p class="p"><?php echo strip_tags($list['content'])?></p>
-                    <div class="group">
+                  <p class="article-title"><?php echo $list['title']?></p>
+                  <div class="article-name"><?php echo $list['name']?></div>
+                  <div class="article-contents-group">
+                    <p class="article-contents"><?php echo strip_tags($list['content'])?></p>
+                    <div class="article-tag">
                       <?php 
                             $tags = explode("#",$list['tag']);
                             for($i=1 ;$i<count($tags) ; $i++):?>
@@ -73,17 +73,17 @@
           <div class="this-week-our-area-title">이번 주 우리동네</div>
           <div class="this-week-our-area-underline"></div>
 
-          <div class="view-wrapper-bottom">
+          <div class="this-week-our-slide-area">
             <div class="article-slide">
-              <div class="element swiper-wrapper">
+              <div class="article-swiper swiper-wrapper">
                 <?php foreach($article_dongnae as $list):?>
-                <div class="element-2 swiper-slide">
+                <div class="article-swiper-contents swiper-slide">
                   <img src="<?php echo get_article_upload_path().$list['thumbnail'];?>" />
-                  <p class="text-wrapper"><?php echo $list['title']?></p>
-                  <div class="text-wrapper-2"><?php echo $list['name']?></div>
-                  <div class="overlap-group">
-                    <p class="p"><?php echo strip_tags($list['content'])?></p>
-                    <div class="group">
+                  <p class="article-title"><?php echo $list['title']?></p>
+                  <div class="article-name"><?php echo $list['name']?></div>
+                  <div class="article-contents-group">
+                    <p class="article-contents"><?php echo strip_tags($list['content'])?></p>
+                    <div class="article-tag">
                       <?php 
                             $tags = explode("#",$list['tag']);
                             for($i=1 ;$i<count($tags) ; $i++):?>
