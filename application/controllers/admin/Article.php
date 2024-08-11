@@ -20,7 +20,7 @@ class Article extends CI_Controller {
 	public function list()
 	{	
 		$data = array();
-		
+	
 		//글목록
 		$data['list'] = $this->article_mdl->get_article_list();
 

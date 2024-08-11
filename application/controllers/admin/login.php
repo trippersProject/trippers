@@ -30,7 +30,6 @@ class Login extends CI_Controller {
             $this->session->set_userdata('admin_id', $admin->email);
             $this->session->set_userdata('admin_username', $admin->name);
 
-            $config['sess_regenerate_destroy'] = FALSE;
             // 관리자 페이지로 리다이렉트
             redirect('admin/home');
         } else {

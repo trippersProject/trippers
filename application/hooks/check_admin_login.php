@@ -12,6 +12,10 @@ function check_admin_login() {
         return; // Login 경로가 포함된 모든 URI는 체크에서 제외
     }
 
+    echo "sdfsdafsdfasd:";
+    print_r($CI->session->userdata);
+    exit;
+
     // 모든 /admin 하위 경로에 대해 로그인 체크 수행
     if (strpos($uri_string, 'admin') === 0) {
         if (!$CI->session->userdata('logged_in')) {

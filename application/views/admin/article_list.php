@@ -1,6 +1,5 @@
 <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <h2>포스트 목록</h2>
-
     <button onclick="location.href='article/apply'" class="btn btn-secondary btn-sm">글쓰기</button>
     <div class="table-responsive">
         <table class="table table-striped table-sm w100">
