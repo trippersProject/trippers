@@ -25,3 +25,34 @@ if (!function_exists('etc_upload_path')) {
         return $CI->config->item('etc_upload_path');
     }
 }
+
+//정렬순서 업데이트
+function update_sort($table, $id, $sort) {
+    $CI =& get_instance();
+
+    if($table && $id){
+        // 배너의 노출순서 업데이트 로직
+        $CI->db->where('id', $id);
+        $CI->db->update($table, array('sort' => $sort));
+
+        echo json_encode(array('status' => 'success'));
+    }else{
+        echo json_encode(array('status' => '필수값 누락'));
+    }
+
+}
+
+//사용여부 업데이트
+function update_use_yn($table, $id, $use_yn) {
+    $CI =& get_instance();
+
+    if($table && $id){
+        // 배너의 사용여부 업데이트 로직
+        $CI->db->where('id', $id);
+        $CI->db->update($table, array('use_yn' => $use_yn));
+
+        echo json_encode(array('status' => 'success'));
+    }else{
+        echo json_encode(array('status' => '필수값 누락'));
+    }
+}

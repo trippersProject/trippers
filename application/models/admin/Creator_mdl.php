@@ -53,7 +53,7 @@ class creator_mdl extends CI_Model {
     }
 
     //작성글 등록
-    public function insert_creators($data) {
+    public function insert_creator($data) {
         $this->db->trans_begin();
 
         $this->db->insert('tp_creator', $data);
