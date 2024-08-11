@@ -20,6 +20,18 @@ if (!function_exists('creator_upload_path')) {
     }
 }
 if (!function_exists('etc_upload_path')) {
+    function get_goods_upload_path() {
+        $CI =& get_instance();
+        return $CI->config->item('goods_upload_path');
+    }
+}
+if (!function_exists('find_item_upload_path')) {
+    function get_find_item_upload_path() {
+        $CI =& get_instance();
+        return $CI->config->item('find_item_upload_path');
+    }
+}
+if (!function_exists('etc_upload_path')) {
     function get_etc_upload_path() {
         $CI =& get_instance();
         return $CI->config->item('etc_upload_path');

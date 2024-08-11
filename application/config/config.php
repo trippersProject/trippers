@@ -100,7 +100,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = TRUE;
+$config['enable_hooks'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -516,8 +516,14 @@ $config['proxy_ips'] = '';
 $config['article_upload_path'] = 'images/article/';
 $config['banner_upload_path'] = 'images/banner/';
 $config['creator_upload_path'] = 'images/creator/';
+$config['goods_upload_path'] = 'images/goods/';
 $config['etc_upload_path'] = 'images/etc/';
+$config['find_item_upload_path'] = 'images/find_item/';
 
 //배너분류
 $config['banner_category']['MT'] = "메인페이지 상단";
 $config['banner_category']['MB'] = "메인페이지 하단";
+
+//회원등급
+$config['auth_level']['99'] = "관리자";
+$config['auth_level']['11'] = "일반회원";

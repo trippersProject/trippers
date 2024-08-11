@@ -45,30 +45,37 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="creator" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#table" /></svg>
+                        <use xlink:href="creator" /></svg>
                     크리에이터 관리
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="banner" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#grid" /></svg>
+                        <use xlink:href="banner" /></svg>
                     베너관리
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="find_item" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#people-circle" /></svg>
+                        <use xlink:href="find_item" /></svg>
                     FIND아이템 관리
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="goods" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#people-circle" /></svg>
+                        <use xlink:href="goods" /></svg>
+                    상품 관리
+                </a>
+            </li>
+            <li>
+                <a href="member" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="member" /></svg>
                     회원 관리
                 </a>
             </li>
@@ -78,7 +85,7 @@
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>mdo</strong>
+                <strong>ADMIN</strong>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                 <li><a class="dropdown-item" href="#">New project...</a></li>
