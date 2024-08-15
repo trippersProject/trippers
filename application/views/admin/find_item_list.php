@@ -10,6 +10,7 @@
                 <th scope="col">아이템명</th>
                 <th scope="col">소모포인트</th>
                 <th scope="col">정렬순서</th>
+                <th scope="col">메인페이지 노출여부</th>
                 <th scope="col">노출여부</th>
                 <th scope="col">등록일</th>
                 <th scope="col">수정</th>
@@ -23,6 +24,11 @@
                     <td><?= $value['name']; ?></td>
                     <td><?= $value['use_point']; ?></td>
                     <td><input type="number" id="sort_<?= $value['id']; ?>" class="form-control sort-input" style="width:60px" value="<?= $value['sort']; ?>" data-id="<?= $value['id']; ?>"></td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input main-use-checkbox" type="checkbox" id="main_use_yn_<?= $value['id']; ?>" data-id="<?= $value['id']; ?>" <?=($value['main_use_yn'] == 'Y')? "checked" : ""?>>
+                        </div>
+                    </td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input use-checkbox" type="checkbox" id="use_yn_<?= $value['id']; ?>" data-id="<?= $value['id']; ?>" <?=($value['use_yn'] == 'Y')? "checked" : ""?>>
@@ -78,6 +84,27 @@
             data: {
                 id: id,
                 use_yn: useYnValue
+            },
+            success: function(response) {
+                alert('사용여부가 업데이트되었습니다.');
+            },
+            error: function(xhr, status, error) {
+                alert('업데이트 중 오류가 발생했습니다.');
+            }
+        });
+    });
+
+    //main_use_yn 체크박스 상태가 변경되었을 때
+    $('.main-use-checkbox').on('change', function() {
+        var id = $(this).data('id');
+        var useYnValue = $(this).is(':checked') ? 'Y' : 'N';
+
+        $.ajax({
+            url: 'find_item/update_main_use_yn',
+            type: 'POST',
+            data: {
+                id: id,
+                main_use_yn: useYnValue
             },
             success: function(response) {
                 alert('사용여부가 업데이트되었습니다.');

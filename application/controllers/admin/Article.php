@@ -117,6 +117,7 @@ class Article extends CI_Controller {
             $id = $this->input->post('id', FALSE);
             $title = $this->input->post('title', TRUE);
             $tag = $this->input->post('tag', TRUE);
+            $head_content = $this->input->post('head_content', TRUE);
             $content = $this->input->post('content', FALSE);  // XSS 필터링하지 않음
             $category1 = $this->input->post('category1', TRUE); //대분류카테고리
             $category2 = $this->input->post('category2', TRUE); //소분류 카테고리
@@ -131,6 +132,39 @@ class Article extends CI_Controller {
             }
 
             // 대표 이미지 업로드 처리
+            $banner_image = null;
+            if (!empty($_FILES['banner_image']['name'])) 
+            { 
+                $config['upload_path'] = 'images/article/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['file_name']     = $this->generate_unique_filename(); // 파일명 생성 함수 호출
+                $config['overwrite']     = TRUE; // 기존 파일 덮어쓰기
+                //$config['max_size'] = 2048; // 2MB
+
+                $this->load->library('upload', $config);
+                //config 초기화
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('banner_image')) {
+
+                    $banner_data = $this->upload->data();
+
+                    $banner_image = $banner_data['file_name'];
+
+                } else {
+                    $result['msg'] = "이미지 업로드에 실패하였습니다";
+                    echo json_encode($result);
+                    return;
+                }
+            }
+            else
+            {
+                $banner_image = $article['banner_image'];
+            }
+
+            print_r($banner_image);
+
+            // 썸네일 업로드 처리
             $thumbnail_file = null;
             if (!empty($_FILES['thumbnail']['name'])) 
             { 
@@ -141,12 +175,14 @@ class Article extends CI_Controller {
                 //$config['max_size'] = 2048; // 2MB
 
                 $this->load->library('upload', $config);
+                //config 초기화
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('thumbnail')) {
 
-                    $data = $this->upload->data();
+                    $thumbnail_data = $this->upload->data();
 
-                    $thumbnail_file = $data['file_name'];
+                    $thumbnail_file = $thumbnail_data['file_name'];
 
                 } else {
                     $result['msg'] = "이미지 업로드에 실패하였습니다";
@@ -159,18 +195,26 @@ class Article extends CI_Controller {
                 $thumbnail_file = $article['thumbnail'];
             }
 
+            print_r($thumbnail_file);
+
             //데이터베이스에 저장
             $data = array(
-                'c_id'       => $title,
-                'category1'  => $category1,
-                'category2'  => $category2,
-                'tag'        => $tag,
-                'thumbnail'  => $thumbnail_file,
-                'title'      => $title,
-                'content'    => $content,
-                'sort'       => 1,
-                'regdate'    => date('Y-m-d H:i:s'),
+                'c_id'           => $title,
+                'category1'      => $category1,
+                'category2'      => $category2,
+                'tag'            => $tag,
+                'head_content'   => $head_content,
+                'banner_image'   => $banner_image,
+                'thumbnail'      => $thumbnail_file,
+                'title'          => $title,
+                'content'        => $content,
+                'sort'           => 1,
+                'regdate'        => date('Y-m-d H:i:s'),
             );
+
+            print_r($data);
+            exit;
+
             //id값 있으면 update
             if(!empty($id))
             {

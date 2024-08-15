@@ -18,17 +18,34 @@
 
             <hr>
 
-            <h4>배너 이미지</h4>
-                <input type="file" name="filename" id="filename" class="form-control w-25">
+            <h4>배너 이미지(PC)</h4>
+                <input type="file" name="filename_pc" id="filename_pc" class="form-control w-25">
 
             <hr>
 
             <div class="container mt-5">
-                <h5>현재 배너 이미지</h5>
-                <p><?= $info['filename'];?></p>
-                <img src="<?= base_url(get_banner_upload_path().$info['filename']);?>" class="img-fluid" style="max-width: 100%;">
+                <h5>현재 배너 이미지(PC)</h5>
+                <p><?= $info['filename_pc'];?></p>
+                <img src="<?= base_url(get_banner_upload_path().$info['filename_pc']);?>" class="img-fluid" style="max-width: 100%;">
             </div>
+            
+            <hr>
 
+            <h4>배너 이미지(mobile)</h4>
+                <input type="file" name="filename_mobile" id="filename_mobile" class="form-control w-25">
+
+            <hr>
+
+            <div class="container mt-5">
+                <h5>현재 배너 이미지(mobile)</h5>
+                <p><?= $info['filename_mobile'];?></p>
+                <img src="<?= base_url(get_banner_upload_path().$info['filename_mobile']);?>" class="img-fluid" style="max-width: 100%;">
+            </div>
+            
+            <hr>
+
+            <h4>배너 연결링크</h4>
+                <input type="text" name="link" id="link" class="form-control" value="<?= $info['link'];?>">
             <hr>
         </div>
         <br/>
@@ -42,9 +59,13 @@
         var formData = new FormData();
         formData.append('id', $('#id').val());
         formData.append('name', $('#name').val());
+        formData.append('link', $('#link').val());
         formData.append('category', $('#category').val());
-        if($('#filename').val()){
-            formData.append('filename', $('#filename')[0].files[0]);
+        if($('#filename_pc').val()){
+            formData.append('filename_pc', $('#filename_pc')[0].files[0]);
+        }
+        if($('#filename_mobile').val()){
+            formData.append('filename_mobile', $('#filename_mobile')[0].files[0]);
         }
 
         $.ajax({

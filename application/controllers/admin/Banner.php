@@ -45,15 +45,6 @@ class Banner extends CI_Controller {
 
         update_use_yn($table, $id, $use_yn);
     }
-    
-	//배너 저장
-	public function apply_banner()
-	{	
-		$title = $this->input->post('title', TRUE);
-		$content = $this->input->post('content', FALSE);  // XSS 필터링하지 않음
-		$category = $this->input->post('category', TRUE);
-		$category_sub = $this->input->post('category_sub', TRUE);
-	}
 
 	//본문 첨부 이미지 저장
 	public function upload_image() {
@@ -82,7 +73,7 @@ class Banner extends CI_Controller {
         return date('YmdHis') . '_' . rand(1000, 9999);
     }
 
-    //글 등록화면 이동
+    //배너 등록화면 이동
 	public function apply()	
 	{	
         $data = array();
@@ -91,7 +82,7 @@ class Banner extends CI_Controller {
         $this->load->view('admin/banner_apply.php', $data);
 	}
 
-	//작성글 수정화면 이동
+	//배너 수정화면 이동
 	public function modify()	
 	{	
 		$id = $this->input->get('id', TRUE);
@@ -120,7 +111,7 @@ class Banner extends CI_Controller {
 		}
 	}
 
-	//작성글 등록,수정
+	//배너 등록,수정
 	public function regi_banner() {
         $result = array();
 
@@ -130,6 +121,7 @@ class Banner extends CI_Controller {
             $id = $this->input->post('id', FALSE);
             $name = $this->input->post('name', TRUE);
             $category = $this->input->post('category', TRUE);
+            $link = $this->input->post('link', TRUE);
 
             $banner = $this->banner_mdl->get_banner_info($id);
 
@@ -139,9 +131,9 @@ class Banner extends CI_Controller {
                 exit;
             }
 
-            // 프로필 이미지 업로드 처리
-            $filename = null;
-            if (!empty($_FILES['filename']['name'])) 
+            //PC용 이미지 업로드 처리
+            $filename_pc = null;
+            if (!empty($_FILES['filename_pc']['name'])) 
             { 
                 $config['upload_path'] = 'images/banner/';
                 $config['allowed_types'] = 'jpg|jpeg|png|gif';
@@ -150,12 +142,14 @@ class Banner extends CI_Controller {
                 //$config['max_size'] = 2048; // 2MB
 
                 $this->load->library('upload', $config);
+                //config 초기화
+                $this->upload->initialize($config);
 
-                if ($this->upload->do_upload('filename')) {
+                if ($this->upload->do_upload('filename_pc')) {
 
                     $data = $this->upload->data();
 
-                    $filename = $data['file_name'];
+                    $filename_pc = $data['file_name'];
 
                 } else {
                     $result['msg'] = "이미지 업로드에 실패하였습니다";
@@ -165,15 +159,49 @@ class Banner extends CI_Controller {
             }
             else
             {
-                $filename = $banner['filename'];
+                $filename_pc = $banner['filename_pc'];
+            }
+
+            //모바일용 이미지 업로드 처리
+            $filename_mobile = null;
+            if (!empty($_FILES['filename_mobile']['name'])) 
+            { 
+                $config['upload_path'] = 'images/banner/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['file_name']     = $this->generate_unique_filename(); // 파일명 생성 함수 호출
+                $config['overwrite']     = TRUE; // 기존 파일 덮어쓰기
+                //$config['max_size'] = 2048; // 2MB
+
+                $this->load->library('upload', $config);
+                //config 초기화
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('filename_mobile')) {
+
+                    $data = $this->upload->data();
+
+                    $filename_mobile = $data['file_name'];
+
+                } else {
+                    $result['msg'] = "이미지 업로드에 실패하였습니다";
+                    echo json_encode($result);
+                    return;
+                }
+            }
+            else
+            {
+                $filename_mobile = $banner['filename_mobile'];
             }
 
             //데이터베이스에 저장
             $data = array(
-                'name'          => $name,
-                'category'      => $category,
-                'filename'      => $filename,
+                'name'              => $name,
+                'category'          => $category,
+                'filename_pc'       => $filename_pc,
+                'filename_mobile'   => $filename_mobile,
+                'link'              => $link,
             );
+
             //id값 있으면 update
             if(!empty($id))
             {

@@ -520,11 +520,13 @@ $config['creator_upload_path'] = 'images/creator/';
 $config['goods_upload_path'] = 'images/goods/';
 $config['etc_upload_path'] = 'images/etc/';
 $config['find_item_upload_path'] = 'images/find_item/';
+$config['place_upload_path'] = 'images/place/';
 
 //배너분류
 $config['banner_category']['MT'] = "메인페이지 상단";
 $config['banner_category']['MB'] = "메인페이지 하단";
 
 //회원등급
-$config['auth_level']['99'] = "관리자";
-$config['auth_level']['11'] = "일반회원";
+$config['auth_level']['99'] = "매니저"; //슈퍼관리자
+$config['auth_level']['91'] = "크리에이터"; //일반관리자(글작성만)
+$config['auth_level']['11'] = "트리퍼"; //일반회원

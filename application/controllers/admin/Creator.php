@@ -137,6 +137,8 @@ class Creator extends CI_Controller {
                 //$config['max_size'] = 2048; // 2MB
 
                 $this->load->library('upload', $config);
+                //config 초기화
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('profile_image')) {
 
@@ -166,7 +168,9 @@ class Creator extends CI_Controller {
                 //$config['max_size'] = 2048; // 2MB
 
                 $this->load->library('upload', $config);
-
+                //config 초기화
+                $this->upload->initialize($config);
+                
                 if ($this->upload->do_upload('banner_image')) {
 
                     $data = $this->upload->data();

@@ -52,6 +52,13 @@
                 </a>
             </li>
             <li>
+                <a href="place" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="place" /></svg>
+                    매장 관리
+                </a>
+            </li>
+            <li>
                 <a href="banner" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="banner" /></svg>

@@ -46,6 +46,21 @@ class Find_item extends CI_Controller {
         update_use_yn($table, $id, $use_yn);
     }
 
+    //메인페이지 노출여부 업데이트
+    public function update_main_use_yn(){
+        $id = $this->input->post('id', TRUE);
+        $use_yn = $this->input->post('main_use_yn', TRUE);
+
+        if($id){
+            $this->db->where('id', $id);
+            $this->db->update('tp_find_item', array('main_use_yn' => $use_yn));
+
+            echo json_encode(array('status' => 'success'));
+        }else{
+            echo json_encode(array('status' => '필수값 누락'));
+        }
+    }
+
 	//본문 첨부 이미지 저장
 	public function upload_image() {
         if ($_FILES['file']['name']) {

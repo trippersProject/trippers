@@ -20,8 +20,9 @@
             <h4>회원 등급</h4>
             <select class="form-control w-25" name="auth_level" id="auth_level">
                 <option value="">---선택---</option>
-                <option value="99" <?= ($info['auth_level'] == '99')? "selected" : ""; ?>>관리자</option>
-                <option value="11" <?= ($info['auth_level'] == '11')? "selected" : ""; ?>>일반회원</option>
+                <option value="99" <?= ($info['auth_level'] == '99')? "selected" : ""; ?>>매니저(관리자)</option>
+                <option value="91" <?= ($info['auth_level'] == '91')? "selected" : ""; ?>>크리에이터(글작성)</option>
+                <option value="11" <?= ($info['auth_level'] == '11')? "selected" : ""; ?>>트리퍼(일반회원)</option>
             </select>
 
             <hr>
