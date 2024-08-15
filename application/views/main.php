@@ -1,5 +1,13 @@
 <?php include_once("layout/header.php")?>
 <style>
+  a {
+    color: black; /* 링크 색깔을 검은색으로 설정 */
+    text-decoration: underline;
+  }
+  a:hover {
+    color: darkgray; /* 마우스를 올렸을 때 색깔을 어두운 회색으로 변경 (선택 사항) */
+  }
+
   .mt-8 { 
     margin-top: 8rem !important;
   }
