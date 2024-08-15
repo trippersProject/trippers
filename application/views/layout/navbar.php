@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md bg-body mt-3 py-3" style="height: 50px;">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="/main" style="margin: 0px -50px 0px 0px;">
-      <img src="assets/img/tripperLogo.png" style="width: 88px;height: 28px;">
+      <img src="/assets/img/tripperLogo.png" style="width: 88px;height: 28px;">
     </a>
     <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-4">
       <span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span>
