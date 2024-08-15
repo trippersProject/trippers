@@ -22,4 +22,9 @@ class Login extends CI_Controller {
 
 		$this->load->view('user_join.php');
 	}
+
+	public function find_password(){
+
+		$this->load->view('find_password.php');
+	}
 }

@@ -1,6 +1,18 @@
-<?php include_once("layout/header.php")?>
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>trippers</title>
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+  <link rel="stylesheet" href="/assets/css/Navbar-Centered-Brand-icons.css">
+  
+  <link rel="stylesheet" href="/assets/css/globals.css" />
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/swiper.css" />
 
-<style>
+  <style>
   a {
     color: black; /* 링크 색깔을 검은색으로 설정 */
     text-decoration: underline;
@@ -17,7 +29,7 @@
   }
 
   .custom-btn:hover {
-    background-color: #333; /* Slightly lighter black on hover */
+    background-color: #757575; /* Slightly lighter black on hover */
   }
 
   .custom-input {
@@ -62,43 +74,33 @@
     margin: 0 auto;
   }
 </style>
+</head>
 
 <body>
   <div class="container-fluid">
     <?php include_once("layout/navbar.php")?>
 
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-      <div class="card p-4 border-0" style="width: 26rem;">
-        <h3 class="text-center text-uppercase mb-5">Login</h3>
+      <div class="card p-4 border-0" style="width: 40rem;">
+        <h3 class="text-center text-uppercase mb-5">password</h3>
+        <div class="text-center mt-5 mb-5">
+          <a href="#">가입한 이메일주소를 입력하시면, 비밀번호 재설정 안내 메일을 보내드립니다.</a>
+        </div>
         <form>
-          <div class="mb-3">
-            <label for="email" class="form-label">이메일</label>
+          <div class="text-center mb-3">
+            <label for="email" class="form-label">이메일주소</label>
             <input type="email" class="form-control custom-input" id="email" style="cursor: text;" required>
           </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" class="form-control custom-input" id="password" style="cursor: text;" required>
-          </div>
-          <div class="d-flex mt-6 gap-2">
-            <button type="submit" class="btn custom-btn w-50">회원가입</button>
-            <button type="submit" class="btn custom-btn w-50">로그인</button>
-          </div>
           <div class="mt-5 d-grid">
-            <button type="submit" class="btn custom-btn">카카오로 로그인</button>
-          </div>
-          <div class="mt-5 d-grid">
-            <button type="submit" class="btn custom-btn">네이버로 로그인</button>
+            <button type="submit" class="btn custom-btn">이메일 발송하기</button>
           </div>
         </form>
-        <div class="text-start mt-5">
-          <a href="/login/find_password">비밀번호를 찾으셔야 하나요?</a>
-        </div>
       </div>
     </div>
 
     <?php include_once("layout/footer_company_info.php")?>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
   </body>
 
 </html>
