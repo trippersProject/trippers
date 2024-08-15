@@ -30,7 +30,7 @@
       color: darkgray; /* 마우스를 올렸을 때 색깔을 어두운 회색으로 변경 (선택 사항) */
     }
 
-    ul {
+    .hero-icon {
       list-style-type: none; /* 기본 목록 스타일 제거 */
       padding: 0; /* 패딩 제거 */
       margin: 0; /* 마진 제거 */
@@ -38,7 +38,7 @@
       justify-content: start;
       gap: 10px; /* 아이콘 간의 간격 설정 */
     }
-    li {
+    .hero-icon li {
       font-size: 24px; /* 아이콘 크기 조정 */
     }
 
@@ -421,7 +421,7 @@
         <div class="col-md-11">아마도책방</div>
       </div>
 
-      <ul class="mt-6">
+      <ul class="mt-6 hero-icon">
         <li><img src="/assets/img/favorite.svg" alt=""></li>
         <li><img src="/assets/img/stars.svg" alt=""></li>
         <li><img src="/assets/img/upload.svg" alt=""></li>
