@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6 text-center text-md-start">
       <div class="logo-container mb-3">
-        <img src="assets/img/footerTripperLogo.png" alt="Company Logo" class="logo-img" />
+        <img src="/assets/img/footerTripperLogo.png" alt="Company Logo" class="logo-img" />
         <div class="logo-underline"></div>
       </div>
       <p>
