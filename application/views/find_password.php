@@ -78,29 +78,29 @@
 
 <body>
   <div class="container-fluid">
-    <?php include_once("layout/navbar.php")?>
+  <?php include_once("layout/navbar.php")?>
 
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-      <div class="card p-4 border-0" style="width: 40rem;">
-        <h3 class="text-center text-uppercase mb-5">password</h3>
-        <div class="text-center mt-5 mb-5">
-          <a href="#">가입한 이메일주소를 입력하시면, 비밀번호 재설정 안내 메일을 보내드립니다.</a>
-        </div>
-        <form>
-          <div class="text-center mb-3">
-            <label for="email" class="form-label">이메일주소</label>
-            <input type="email" class="form-control custom-input" id="email" style="cursor: text;" required>
-          </div>
-          <div class="mt-5 d-grid">
-            <button type="submit" class="btn custom-btn">이메일 발송하기</button>
-          </div>
-        </form>
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 border-0" style="width: 40rem;">
+      <h3 class="text-center text-uppercase mb-5">password</h3>
+      <div class="text-center mt-5 mb-5">
+        <a href="#">가입한 이메일주소를 입력하시면, 비밀번호 재설정 안내 메일을 보내드립니다.</a>
       </div>
+      <form>
+        <div class="text-center mb-3">
+          <label for="email" class="form-label">이메일주소</label>
+          <input type="email" class="form-control custom-input" id="email" style="cursor: text;" required>
+        </div>
+        <div class="mt-5 d-grid">
+          <button type="submit" class="btn custom-btn">이메일 발송하기</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <?php include_once("layout/footer_company_info.php")?>
+  <?php include_once("layout/footer_company_info.php")?>
 
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-  </body>
+  <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
 
 </html>
