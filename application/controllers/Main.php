@@ -36,4 +36,10 @@ class Main extends CI_Controller {
 
 		$this->load->view('articleDetail.php',$data);
 	}
+
+	public function aboutTripper() {
+		$data = array();
+
+		$this->load->view('aboutTripper.php',$data);
+	}
 }

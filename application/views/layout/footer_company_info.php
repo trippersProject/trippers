@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-5 mt-6 text-center text-md-end">
       <div class="d-inline-block mb-3 mb-md-0">
-        <a href="#" class="text-decoration-none me-3">ABOUT</a>|
+        <a href="/main/aboutTripper" class="text-decoration-none me-3">ABOUT</a>|
         <a href="#" class="text-decoration-none mx-3">NEWSLETTER</a>|
         <a href="#" class="text-decoration-none mx-3">INSTAGRAM</a>|
         <a href="#" class="text-decoration-none ms-3">YOUTUBE</a>
