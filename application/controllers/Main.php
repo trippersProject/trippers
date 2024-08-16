@@ -48,4 +48,10 @@ class Main extends CI_Controller {
 
 		$this->load->view('archiveTripper.php',$data);
 	}
+
+	public function findTripperGoods() {
+		$data = array();
+
+		$this->load->view('findTripperGoods.php',$data);
+	}
 }
