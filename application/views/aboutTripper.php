@@ -17,6 +17,7 @@
       color: black; /* 링크 색깔을 검은색으로 설정 */
       text-decoration: underline;
     }
+    
     a:hover {
       color: darkgray; /* 마우스를 올렸을 때 색깔을 어두운 회색으로 변경 (선택 사항) */
     }
@@ -347,7 +348,7 @@
     <!-- 스크립트 위치를 body 태그 안으로 이동 -->
     <script src="/assets/js/swiper.js"></script>
     <script>
-      let creatorSwiper = new Swiper('.first-about-swiper', {
+      let firstAboutSwiper = new Swiper('.first-about-swiper', {
         slidesPerView: 2,
         spaceBetween: 20,
         loop: true,
@@ -367,7 +368,7 @@
         }
       });
       
-      let dongnaeSwiper = new Swiper('.second-about-swiper', {
+      let secondAboutSwiper = new Swiper('.second-about-swiper', {
         slidesPerView: 2,
         spaceBetween: 20,
         loop: true,
