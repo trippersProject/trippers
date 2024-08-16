@@ -1,110 +1,220 @@
-<?php include_once("layout/header.php")?>
-<style>
-<?php include_once("assets/css/user_join.css")?>
-</style>
-<body link="black" vlink="black">
-    <div class="pc">
-      <div class="line-parent">
-        <div class="group-child"></div>
-        <img class="group-item" alt="" src="<?php echo get_etc_upload_path()?>logo.png" />
-      </div>
-      <div class="pc-inner">
-        <header class="frame-parent">
-          <div class="menu-wrapper">
-            <a class="menu">Menu</a>
-          </div>
-          <div class="wrapper">
-            <img class="icon" loading="lazy" alt="" src="<?php echo get_etc_upload_path()?>logo.png" />
-          </div>
-          <div class="frame-wrapper">
-            <div class="search-parent">
-              <img class="search-icon" loading="lazy" alt="" src="https://c.animaapp.com/IWpl16yO/img/search.svg"/>
-              <img class="user-icon" loading="lazy" alt="" src="https://c.animaapp.com/IWpl16yO/img/user.svg"/>
-            </div>
-          </div>
-        </header>
-      </div>
-      <img class="check-box-icon" alt="" src="./public/check-box.svg" />
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>trippers</title>
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+  <link rel="stylesheet" href="/assets/css/Navbar-Centered-Brand-icons.css">
+  
+  <link rel="stylesheet" href="/assets/css/globals.css" />
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/swiper.css" />
 
-      <section class="signup-parent">
-        <div class="signup">SIGNUP</div>
-        <div class="frame-container">
-          <div class="frame-group">
-            <div class="parent">
-              <div class="div">이름(닉네임) *</div>
-              <input class="frame-child" type="text">
-            </div>
-            <div class="parent">
-              <div class="div1">이메일 주소 *</div>
-              <input class="frame-child" type="text">
-            </div>
-            <div class="parent">
-              <div class="div2">휴대폰 번호 *</div>
-              <input class="frame-child" type="text">
-            </div>
-            <div class="parent">
-              <div class="div3">비밀번호 *</div>
-              <input class="frame-child" type="text">
-            </div>
-            <div class="parent">
-              <div class="div4">비밀번호 확인 *</div>
-              <input class="frame-child" type="text">
-            </div>
-          </div>
-        </div>
-        <div class="frame-wrapper1">
-          <div class="frame-parent1">
-            <div class="frame-parent2">
-              <div class="check-box-outline-blank-parent">
-                <div class="form-check">
-                  <input style="accent-color: black" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1"><b>전체동의</b></label>
-                </div>
-              </div>
-              <div class="check-box-parent">
-                <div class="form-check">
-                  <input style="accent-color: black" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1"><b>[필수] <a href="#">이용약관</a>과 <a href="#">개인정보처리방침</a>에 동의합니다</b></label>
-                </div>
-              </div>
-            </div>
-            <div class="check-box-group">
-              <div class="form-check">
-                  <input style="accent-color: black" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1"><b>[필수] 트립레터를 구독합니다</b></label>
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-wrapper2">
-          <div class="vector-parent">
-            <div class="div8">가입하기</div>
-          </div>
-        </div>
-      </section>
-      <section class="pc-child">
-        <div class="b-1-parent">
-          <img class="b-1-icon" loading="lazy" alt="" src="<?php echo get_etc_upload_path()?>logo_black.png"/>
+  <style>
+    .text-small {
+      font-size: 11px; /* 원하는 크기로 조정 */
+    }
 
-          <div class="parent2">
-            <div class="div9">
-              <span>
-                <p class="p">트리퍼</p>
-                <p class="p1">
-                  대표 이진우 | 사업자 등록번호 732-17-02122 | 통신판매업 신고번호 2023-경남 남해-105호
-                </p>
-                <p class="p2">경남 남해군 삼동면 동부대로 1876번길 15</p>
-              </span>
+    .custom-checkbox-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid black;
+      background-color: white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border-radius: 0; /* 사각형 유지 */
+      position: relative;
+      cursor: pointer;
+      margin-right: 8px; /* 체크박스와 글씨 사이 간격 */
+    }
+    
+    .custom-checkbox:checked {
+      background-color: white;
+      border-color: gray; /* 체크했을 때 테두리 색상 회색으로 변경 */
+    }
+    
+    .custom-checkbox:checked::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 6px;
+      width: 5px;
+      height: 10px;
+      border: solid black;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    a {
+      color: black; /* 링크 색깔을 검은색으로 설정 */
+      text-decoration: underline;
+    }
+
+    .custom-btn {
+      background-color: #000; /* Black background */
+      color: #fff; /* White text */
+      border-radius: 0; /* Remove rounded corners to make the button rectangular */
+      border: none; /* Remove any default border */
+      padding: 10px; /* Add padding for a better look */
+      text-transform: uppercase; /* Uppercase text for consistency */
+      font-weight: bold; /* Bold text */
+    }
+
+    .custom-btn:hover {
+      background-color: #333; /* Slightly lighter black on hover */
+    }
+
+    .custom-input {
+      background-color: #f2f2f2; /* Light gray background */
+      color: #000; /* Black text */
+      border-radius: 0; /* Remove rounded corners to make the input rectangular */
+      padding: 10px; /* Add padding for a better look */
+      box-shadow: none; /* Remove any default shadow */
+    }
+
+    .custom-input:focus {
+      background-color: #e6e6e6; /* Slightly darker gray on focus */
+      border-color: #999; /* Darker border color on focus */
+      outline: none; /* Remove default outline */
+    }
+
+    .mt-8 {
+      margin-top: 8rem !important;
+    }
+
+    .mt-6 {
+      margin-top: 5rem !important;
+    }
+
+    .logo-container {
+      display: inline-block;
+      text-align: center;
+    }
+
+    .logo-underline {
+      height: 5px;
+      width: 70px; /* Adjust the width as needed */
+      background-color: #000; /* Black color for the underline */
+      margin: 0 auto;
+      margin-top: 8px; /* Adjust spacing between the image and the underline */
+    }
+
+    .logo-img {
+      width: 70px; /* Adjust the width as needed */
+      height: auto; /* Maintain aspect ratio */
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <?php include_once("layout/navbar.php")?>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+      <div class="card p-4 border-0" style="width: 26rem;">
+        <h3 class="text-center text-uppercase mb-5">signup</h3>
+        <form action="" method="post">
+          <div class="mb-3">
+            <label for="username" class="form-label">이름(닉네임) *</label>
+            <input type="text" class="form-control custom-input" id="username" style="cursor: text;" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">이메일 주소 *</label>
+            <input type="email" class="form-control custom-input" id="email" style="cursor: text;" required>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">휴대폰 번호 *</label>
+            <input type="text" class="form-control custom-input" id="phone" style="cursor: text;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">비밀번호 *</label>
+            <input type="password" class="form-control custom-input" id="password" style="cursor: text;" required>
+          </div>
+          <div class="mb-3">
+            <label for="password-verify" class="form-label">비밀번호 확인 *</label>
+            <input type="text" class="form-control custom-input" id="password-verify" style="cursor: text;" required>
+          </div>
+          
+          <div class="form-check custom-checkbox-container mt-5">
+            <input class="form-check-input custom-checkbox" type="checkbox" id="agreeAll">
+            <label class="form-check-label ms-2 pt-1" for="agreeAll">
+              전체 동의
+            </label>
+          </div>
+
+          <div class="form-check custom-checkbox-container mt-2">
+            <input class="form-check-input custom-checkbox" type="checkbox" id="privacyAgree">
+            <label class="form-check-label ms-2 pt-1" for="privacyAgree">
+              <span class="text-small">필수</span> <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">이용약관</a>과
+              <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">개인정보처리방침</a>에 동의합니다
+            </label>
+          </div>
+
+          <div class="form-check custom-checkbox-container mt-2">
+            <input class="form-check-input custom-checkbox" type="checkbox" id="tripLetter">
+            <label class="form-check-label ms-2 pt-1" for="tripLetter">
+              <span class="text-small">필수</span> 트립레터를 구독합니다
+            </label>
+          </div>
+
+          <div class="mt-5 d-grid">
+            <button type="submit" class="btn custom-btn">가입하기</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 이용약관 모달 -->
+      <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="termsModalLabel">이용약관</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="about-newsletter-instagram-wrapper">
-              <div class="about-newsletter">
-                ABOUT | NEWSLETTER | INSTAGRAM | YOUTUBE
-              </div>
+            <div class="modal-body">
+              <!-- 이용약관 내용을 여기에 추가 -->
+              여기에 이용약관 내용이 들어갑니다.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
             </div>
           </div>
-          <div class="frame-child2"></div>
         </div>
-      </section>
+      </div>
+
+      <!-- 개인정보처리방침 모달 -->
+      <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="privacyModalLabel">개인정보처리방침</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- 개인정보처리방침 내용을 여기에 추가 -->
+              여기에 개인정보처리방침 내용이 들어갑니다.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <?php include_once("layout/footer_company_info.php")?>
+
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
   </body>
+
 </html>

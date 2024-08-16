@@ -80,7 +80,7 @@
             <input type="password" class="form-control custom-input" id="password" style="cursor: text;" required>
           </div>
           <div class="d-flex mt-6 gap-2">
-            <button type="submit" class="btn custom-btn w-50">회원가입</button>
+            <button type="submit" class="btn custom-btn w-50" onclick="location.href='/login/user_join'">회원가입</button>
             <button type="submit" class="btn custom-btn w-50">로그인</button>
           </div>
           <div class="mt-5 d-grid">
