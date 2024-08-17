@@ -384,8 +384,8 @@
       <div class="swiper-pagination recent-pagination"></div>
     </div>
 
-    <div class="mt-7 centered-text-container">
-      <div class="centered-text text-light">조회수 높은 콘텐츠</div>
+    <div class="mt-7 centered-text-overlay-container">
+      <div class="centered-text-overlay text-light">조회수 높은 콘텐츠</div>
     </div>
 
     <!-- Slider main container -->
