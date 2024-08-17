@@ -1,4 +1,21 @@
 <style>
+  /* Overlay 스타일 */
+  .menu-overlay {
+    display: none; /* 처음에는 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0); /* 검정색 불투명 배경 */
+    z-index: 999999; /* 다른 요소 위에 표시되도록 z-index 설정 */
+    overflow-y: auto; /* 세로 스크롤 가능하도록 설정 */
+    flex-direction: column; /* 내용이 세로 방향으로 쌓이게 설정 */
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    padding: 20px; /* 내부 여백 추가 */
+  }
+
   /* 버튼 그룹 스타일 */
   .button-group {
     display: flex;
@@ -164,7 +181,7 @@
   }
 
   /* 카드 내용 */
-  .card-body {
+  .menu .card-body {
     display: flex;
     flex-direction: column;
     align-items: center; /* 내용 중앙 정렬 */
@@ -274,6 +291,40 @@
       margin-bottom: 10px; /* 메뉴 아이템 간격 조정 */
     }
   }
+
+  .menu-group ul {
+    list-style-type: none; /* li 스타일 점 제거 */
+    padding: 0; /* 기본 padding 제거 */
+    margin: 0; /* 기본 margin 제거 */
+    text-align: center;
+  }
+
+  .menu-group ul li {
+    margin-bottom: 10px; /* 각 li 항목 간의 간격 설정 */
+  }
+
+  .menu-group ul li a {
+    text-decoration: none; /* 기본 밑줄 제거 */
+    color: lightgray; /* 텍스트 색상 */
+  }
+
+  .menu-group .site-menu li a {
+    font-size: 48px; /* 글씨 크기 설정 */
+  }
+
+  .menu-group ul li a:hover {
+    text-decoration: underline !important;
+    color: #F36523 !important;
+  }
+
+  .custom-hr {
+    width: 30%;
+    height: 4px;
+    background-color: #fff;
+    border: none;
+    margin: 0 auto; /* 중앙 정렬 */
+    opacity: 1; /* 완전히 흰색으로 설정 */
+  }
 </style>
 
 <nav class="navbar navbar-expand-md bg-body mt-3 py-3" style="height: 50px;">
@@ -286,7 +337,7 @@
     </button>
     <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-4">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link active" href="#">Menu</a></li>
+        <li class="nav-item"><a class="nav-link active pc-mo-menu" href="#">Menu</a></li>
         <li class="nav-item"></li>
       </ul>
       <div class="d-md-none my-2">
@@ -306,7 +357,33 @@
   </div>
 </nav>
     
-  <!-- 검색 오버레이 -->
+  <!-- 메뉴 오버레이 -->
+  <div id="menu-overlay" class="menu-overlay">
+    <div class="menu-box">
+      <div class="menu-group mt-5">
+        <ul class="site-menu">
+          <li><a href="/main" class="text-light text-uppercase">home</a></li>
+          <li><a href="/main/archiveTripper" class="text-light text-uppercase">archive</a></li>
+          <li><a href="/main/findTripperGoods" class="text-light text-uppercase">find</a></li>
+          <li><a href="/main/aboutTripper" class="text-light text-uppercase">about</a></li>
+        </ul>
+
+        <hr class="custom-hr mt-5 mb-5">
+
+        <ul class="sns-menu">
+          <li><a href="" class="text-light text-uppercase">shop</a></li>
+          <li><a href="" class="text-light text-uppercase">newsletter</a></li>
+          <li><a href="" class="text-light text-uppercase">instagram</a></li>
+          <li><a href="" class="text-light text-uppercase">youtube</a></li>
+        </ul>
+      </div>
+
+      <div class="arrow-container">
+        <img src="/assets/img/upperArrow.svg" alt="Upper Arrow" id="close-menu-overlay">
+      </div>
+    </div>
+  </div>
+
   <div id="search-overlay" class="search-overlay">
     <div class="search-box">
       <div class="input-group mt-8">
@@ -330,7 +407,7 @@
         <div class="swiper-wrapper mb-5">
           <!-- Slides -->
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test1.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -468,6 +545,24 @@
 <script src="/assets/js/swiper.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script>
+  // menu 클릭 이벤트
+  document.querySelector('.pc-mo-menu').addEventListener('click', function() {
+    document.getElementById('menu-overlay').style.display = 'flex'; // 오버레이 표시
+  });
+
+  // 오버레이 클릭 시 숨기기
+  document.getElementById('menu-overlay').addEventListener('click', function(event) {
+    if (event.target === this) {
+      this.style.display = 'none'; // 오버레이 숨김
+    }
+  });
+
+  // SVG 클릭 시 오버레이 숨기기
+  document.getElementById('close-menu-overlay').addEventListener('click', function() {
+    document.getElementById('menu-overlay').style.display = 'none'; // 오버레이 숨김
+  });
+
+
   // PC - 검색 아이콘 클릭 이벤트
   document.querySelector('.pc-search').addEventListener('click', function() {
     document.getElementById('search-overlay').style.display = 'flex'; // 오버레이 표시
