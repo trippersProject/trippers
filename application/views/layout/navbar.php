@@ -215,7 +215,6 @@
   .swiper-slide {
     display: flex;
     justify-content: center; /* 슬라이드를 수평 중앙 정렬 */
-    align-items: center; /* 슬라이드를 수직 중앙 정렬 */
   }
 
   /* 클릭 시 테두리 제거 */
@@ -416,7 +415,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test2.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -425,7 +424,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test3.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -434,7 +433,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test4.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -443,7 +442,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test1.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -452,7 +451,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test2.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h5 class="card-title">DONGNAE</h5>
@@ -476,7 +475,7 @@
         <div class="swiper-wrapper mb-5">
           <!-- Slides -->
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test1.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -485,7 +484,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test2.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -494,7 +493,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test3.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -503,7 +502,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test4.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -512,7 +511,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test1.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h6 class="card-title">DONGNAE</h6>
@@ -521,7 +520,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card">
+            <div class="card menu">
               <img src="/assets/img/test2.png" class="card-img-top" alt="Card Image">
               <div class="card-body">
                 <h5 class="card-title">DONGNAE</h5>
