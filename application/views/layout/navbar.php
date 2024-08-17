@@ -141,7 +141,7 @@
     }
   }
 
-  .centered-text-container {
+  .centered-text-overlay-container {
     display: flex;
     justify-content: center; /* 가로 방향 중앙 정렬 */
     align-items: center; /* 세로 방향 중앙 정렬 */
@@ -151,7 +151,7 @@
     position: relative; /* 부모 컨테이너에서 상대 위치 설정 */
   }
 
-  .centered-text {
+  .centered-text-overlay {
     text-align: center; /* 텍스트를 화면 중앙에 위치 */
     position: relative; /* 밑줄을 위한 상대 위치 지정 */
     display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
@@ -161,7 +161,7 @@
     font-size: 24px;
   }
   
-  .centered-text::after {
+  .centered-text-overlay::after {
     content: ""; /* 가상 요소 생성 */
     display: block;
     width: 100%; /* 밑줄의 길이 */
@@ -315,8 +315,8 @@
       <button class="search-button text-uppercase">creator</button>
     </div>
 
-    <div class="mt-5 centered-text-container">
-      <div class="centered-text text-light">최신 콘텐츠</div>
+    <div class="mt-5 centered-text-overlay-container">
+      <div class="centered-text-overlay text-light">최신 콘텐츠</div>
     </div>
 
     <!-- Slider main container -->
