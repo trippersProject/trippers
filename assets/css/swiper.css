@@ -796,3 +796,19 @@ button.swiper-pagination-bullet {
 .swiper-find-item-next {
   right: 10px; /* 오른쪽 위치 */
 }
+
+/* 슬라이드 중앙 정렬 */
+.swiper-wrapper {
+  display: flex;
+  justify-content: space-between; /* 슬라이드를 수평 중앙 정렬 */
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center; /* 슬라이드를 수평 중앙 정렬 */
+}
+
+/* 클릭 시 테두리 제거 */
+.swiper-slide:focus {
+  outline: none; /* 기본 outline 제거 */
+}

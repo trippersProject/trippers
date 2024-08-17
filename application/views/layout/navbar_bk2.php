@@ -99,8 +99,7 @@
   }
 
   /* 카드 스타일 */
-  .recent-swiper .card,
-  .views-swiper .card {
+  .card {
     width: 100%;
     max-width: 23rem; /* 카드 최대 너비 */
     transition: transform 0.2s ease-in-out;
