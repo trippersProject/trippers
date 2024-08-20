@@ -273,11 +273,11 @@
     <?php include_once("layout/navbar.php")?>
 
     <div class="mt-2">
-      <div style="height: 600px; background-image: url(https://cdn.bootstrapstudio.io/placeholders/1400x800.png); background-position: center; background-size: cover;">
+      <div style="height: 600px; background-image: url('<?= get_creator_upload_path(). $creator['banner_image'] ?>'); background-position: center; background-size: cover;">
         <div class="container h-100">
           <div class="row h-100 align-items-center justify-content-center">
             <div class="col-md-6 text-center">
-              <h1 class="fw-bold">‘아마도’라는 말로 일단 시작했어요</h1>
+              <h1 class="fw-bold"><?= $info['title']?></h1>
             </div>
           </div>
         </div>
@@ -289,13 +289,14 @@
         <div class="col-md-6">
           <div class="p-xl-5 m-xl-5">
             <div class="image-container">
-              <img class="rounded-circle img-fluid" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
+              <img class="rounded-circle img-fluid" src="<?= get_creator_upload_path(). $creator['profile_image'] ?>" />
             </div>
           </div>
         </div>
         <div class="col-md-6 d-md-flex align-items-md-center">
           <div class="text-center" style="max-width: 500px;">
-            <h6 class="fw-bold">아마도 책방</h6>
+            <?= $creator['description'] ?>
+            <!-- <h6 class="fw-bold">아마도 책방</h6>
             <h4 class="fw-bold">책방지기 박수진</h4>
             
             <p class="my-3">
@@ -304,80 +305,33 @@
               평일엔 팜프라촌에서 일하고, 책도 쓰고, 서핑을 즐기는 멋진 여성이지.
               <br />
               시골에서 마음 가는대로 살게 된다면? 바로 이렇게 멋지게 살아보면 어떨까?
-            </p>
+            </p> -->
 
             <div class="sns-img-container">
-              <img src="/assets/img/Home.svg" alt="" class="img-icon">
-              <img src="/assets/img/Instagram.svg" alt="" class="img-icon">
+              <a href="<?=$creator['homepage_url']?>" target="_blank">
+                <img src="/assets/img/Home.svg" alt="" class="img-icon">
+              </a>
+              <a href="<?=$creator['sns_url_1']?>" target="_blank">
+                <img src="/assets/img/Instagram.svg" alt="" class="img-icon">
+              </a>
             </div>
             
             <div class="badge-container">
-              <h6 class="badge">경남남해</h6>
-              <h6 class="badge">크리에이터</h6>
-              <h6 class="badge">책작가</h6>
+              <?php 
+                $tags = explode("#", $info['tag']);
+                for($i = 1; $i < count($tags); $i++): 
+              ?>
+                <h6><span class="badge bg-secondary"><?= $tags[$i]; ?></span></h6>
+              <?php endfor; ?>
             </div>
           </div>
         </div>
       </div>
 
       <div class="row mt-7">
-        <h3>책방하려고 남해에 내려온 건 아니예요</h3>
-        <p class="mt-3 lh-lg">
-          서울에서 회사 생활을 한 3년 정도 짧게 했었는데 퇴사 이후에 뭘 해야 될지 조금 고민하는 시간을 1년 정도 가졌었어요. 속초에도 한 6개월 살아보면서 일을 병행했어요.
-          근데 또 지치더라구요. 이번엔 '조금 더 따뜻한 곳으로 가자' 싶어서 여행 온 게 남해였는데 그때 남해의 풍경이 너무 아름다운 거예요.
-          <br /><br />
-          그 이후에 한 달 정도 짧게 여행을 하며 반복하다 보니 '이럴 거면 그냥 한번 살아보자'해서 내려오게 된 거였어요. 제가 보통 어딜가든 그 동네에 작은 책방들을 찾아서
-          꼭 가보는 편인데 그 당시에만 해도 남해에 독립 서점이 안 나오는 거예요. 이렇게 좋은 곳이고 또 관광지인데 왜 없을까 하다가 '그럼 내가 한번 해볼까?' 라는
-          생각이 들어서 시작하게 됐던 것 같아요.
-        </p>
+      <?= $info['content']; ?>
       </div>
-
-      <!-- FIXME: 일단은 이미지 고정으로 사용. 반복해서 사용시 표시가 제대로 안되는 현상이 있음. -->
-      <div class="mt-5 swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="first-left-image" alt="Left Image">
-            <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="first-right-image" alt="Right Image">
-          </div>
-          <!-- Add more slides as needed -->
-        </div>
-      </div>
-
-      <div class="row mt-7">
-        <h3>책이 나의 아이덴티티라고 생각했어요</h3>
-        <p class="mt-3 lh-lg">
-          1인으로 운영되는 서점이라서 어떤 특정한 책을 들여온다 하는 기준은 없는 거 같아요. 아무래도 제가 스스로 궁금해하고 좋아하는 작가의 책이나 새로 배우고 싶은 분야를 많이
-          들여오는 거 같아요. 지난 입고된 책들의 목록을 쭉 보면 그때 그 시기에 제가 어떤 것에 관심을 기울였는지 알 수 있어요.
-          <br /><br />
-          그래서 애초에 책방을 해보자고 생각을 한 것도 책이 어떻게 보면 하나의 매개체니까 다양한 콘텐츠들을 담을 수 있겠다는 생각이 들어서 시작했던 거였어요. 처음에 저의 취향
-          위주였다면 지금은 전보단 조금씩 더 많이 찾아주시고 하다 보니까 요새는 대중 혹은 여행 오신 여행객분들이 쉽게 읽을 수 있는 책들도 같이 두루두루 이렇게 입고를 하고 있는
-          편이에요.
-        </p>
-      </div>
-
-      <!-- FIXME: 일단은 이미지 고정으로 사용. 반복해서 사용시 표시가 제대로 안되는 현상이 있음. -->
-      <div class="mt-5 swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="second-left-image" alt="Left Image">
-            <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="second-right-image" alt="Right Image">
-          </div>
-          <!-- Add more slides as needed -->
-        </div>
-      </div>
-
-      <div class="row mt-7">
-        <h3>제 서점의 하루 주인이 되어보세요</h3>
-        <p class="mt-3 lh-lg">
-          지금 남해에 온 지 8년 차인데 2년 차쯤 위기가 있었어요. 어쨌든 사람의 일이 계획대로 되는 게 아니다 보니까 고민을 하다가 재계약을 하게 됐고 남해에 더 남아있기로
-          하면서 새로운 걸 시도해 보자! 싶어서 책방 체험 프로그램을 생각하게 되었어요. 물론 단골 손님들이나 저를 보기 위해서 와주시는 분들한테는 너무 죄송하지만 책방
-          운영을 이어가기 위해서는 계속 다른 일들을 저는 병행해야 되거든요.
-          <br /><br />
-          그렇게 시작한 체험 프로그램이 반응이 좋았어요. 상대적으로 굉장히 적은 비용으로 책방을 하루 동안 체험을 해볼 수 있으니까요. 그리고 방문하시는 손님들도 원래는 닫혀 있는
-          날인데 일일 지기 님이 계시면 책방이 열리니까 책방을 둘러볼 수 있어서 좋고요. 서로에게 좋은 게 되었죠.
-        </p>
-      </div>
-
+      
       <div class="row mt-5">
         <div class="col-md-1 fw-bold">글</div>
         <div class="col-md-11">YES</div>
@@ -425,7 +379,7 @@
     </div>
     
 
-    <!-- Slider main container -->
+   <!-- Slider main container -->
     <div class="mt-5 w-95 swiper related-swiper">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
@@ -445,86 +399,11 @@
             </div>
           </div>
         </div>
-        <div class="swiper-slide">
-          <div class="card">
-            <!-- <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="card-img-top" alt="Card Image"> -->
-            <img src="/assets/img/test2.png" class="card-img-top" alt="Card Image">
-            <div class="card-body">
-              <h6 class="card-title">DONGNAE</h6>
-              <h4 class="card-title">딱 두 시간만 먹을 수 있는 식당.</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="badge-container">
-                <h6><span class="badge">경남김해</span></h6>
-                <h6><span class="badge">칼국수</span></h6>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="card">
-            <!-- <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="card-img-top" alt="Card Image"> -->
-            <img src="/assets/img/test3.png" class="card-img-top" alt="Card Image">
-            <div class="card-body">
-              <h6 class="card-title">DONGNAE</h6>
-              <h4 class="card-title">딱 두 시간만 먹을 수 있는 식당.</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="badge-container">
-                <h6><span class="badge">경남김해</span></h6>
-                <h6><span class="badge">칼국수</span></h6>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="card">
-            <!-- <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="card-img-top" alt="Card Image"> -->
-            <img src="/assets/img/test4.png" class="card-img-top" alt="Card Image">
-            <div class="card-body">
-              <h6 class="card-title">DONGNAE</h6>
-              <h4 class="card-title">딱 두 시간만 먹을 수 있는 식당.</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="badge-container">
-                <h6><span class="badge">경남김해</span></h6>
-                <h6><span class="badge">칼국수</span></h6>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="card">
-            <!-- <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="card-img-top" alt="Card Image"> -->
-            <img src="/assets/img/test1.png" class="card-img-top" alt="Card Image">
-            <div class="card-body">
-              <h6 class="card-title">DONGNAE</h6>
-              <h4 class="card-title">딱 두 시간만 먹을 수 있는 식당.</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="badge-container">
-                <h6><span class="badge">경남김해</span></h6>
-                <h6><span class="badge">칼국수</span></h6>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="card">
-            <!-- <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="card-img-top" alt="Card Image"> -->
-            <img src="/assets/img/test2.png" class="card-img-top" alt="Card Image">
-            <div class="card-body">
-              <h5 class="card-title">DONGNAE</h5>
-              <h4 class="card-title">딱 두 시간만 먹을 수 있는 식당.</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="badge-container">
-                <h6><span class="badge">경남김해</span></h6>
-                <h6><span class="badge">칼국수</span></h6>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- If we need pagination -->
       <!-- <div class="swiper-pagination related-pagination"></div> -->
     </div>
-  </div>
+    </div>
 
   <?php include_once("layout/footer_company_info.php")?>
 

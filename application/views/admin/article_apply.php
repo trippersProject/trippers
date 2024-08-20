@@ -5,11 +5,10 @@
     <form method="post" id="articleForm">
         <div>
             <h4>대분류 카테고리</h4>
-            <select name="category1" id="category1" class="form-control w-25">
+            <select name="category1" id="category1" class="form-control w-25" onchange="changCategory()">
                 <option value=''>---선택---</option>
-                <?php foreach($category1 as $item):?>
-                    <option value="<?php echo $item['id']?>"><?php echo $item['name']?></option>
-                <?php endforeach; ?>
+                <option value="1">CREATOR</option>
+                <option value="2">DONGNAE</option>
             </select>
 
             <hr>
@@ -24,15 +23,29 @@
 
             <hr>
 
-            <h4>크리에이터(크리에이터 글일 경우에만 선택)</h4>
-            <select name="c_id" id="c_id" class="form-control w-25">
-                <?php /*foreach($category2 as $item):?>
-                    <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category2']) ? "selected" : ""?>><?php echo $item['name']?></option>
-                <?php endforeach; */?>
-                <option value='1'>테스트크리에이터</option>
-            </select>
+            <div id="creator_area" style="display:none">
+                <h4>크리에이터</h4>
+                <select name="c_id" id="c_id" class="form-control w-25">
+                    <option value="">---선택---</option>
+                    <?php foreach($creator as $list):?>
+                        <option value="<?php echo $list['id']?>"><?php echo $list['name']?></option>
+                    <?php endforeach;?>
+                </select>
 
-            <hr>
+                <hr>
+            </div>
+            
+            <div id="place_area" style="display:none">
+                <h4>매장</h4>
+                <select name="place_id" id="place_id" class="form-control w-25">
+                    <option value="">---선택---</option>
+                    <?php foreach($place as $list):?>
+                        <option value="<?php echo $list['id']?>"><?php echo $list['name']?></option>
+                    <?php endforeach;?>
+                </select>
+
+                <hr>
+            </div>
 
             <h4>대표 이미지</h4>
                 <input type="file" name="banner_image" id="banner_image" class="form-control w-25">
@@ -259,4 +272,22 @@
             }
         });
     });
+
+function changCategory(){
+    var selectedValue = $("#category1").val();
+
+    if (selectedValue == '1') {
+        // category1의 value가 1일 때 creator_area를 표시
+        $('#creator_area').css('display', 'inline');
+        $('#place_area').css('display', 'none'); // place_area는 숨김
+    } else if (selectedValue == '2') {
+        // category1의 value가 2일 때 place_area를 표시
+        $('#place_area').css('display', 'inline');
+        $('#creator_area').css('display', 'none'); // creator_area는 숨김
+    } else {
+        // 그 외의 경우 두 영역 모두 숨김
+        $('#creator_area').css('display', 'none');
+        $('#place_area').css('display', 'none');
+    }
+};
 </script>

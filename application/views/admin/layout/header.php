@@ -20,6 +20,22 @@
     <!-- Summernote JS -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
+<script>
+$(document).ready(function () {
+    // 현재 URL의 경로를 가져옴
+    var path = window.location.pathname;
+
+    // 모든 nav-link에서 active 클래스를 제거
+    $('.nav-link').removeClass('active');
+
+    // 현재 경로와 일치하는 href 속성을 가진 nav-link에 active 클래스 추가
+    $('.nav-link').each(function () {
+        if ($(this).attr('href') === path) {
+            $(this).addClass('active');
+        }
+    });
+});
+</script>
 <body>
 <main class="d-flex flex-nowrap">
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
@@ -31,56 +47,56 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="home" class="nav-link active" aria-current="page">
+                <a href="/admin/home" class="nav-link text-white" aria-current="page">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="home" /></svg>
                     Home
                 </a>
             </li>
             <li>
-                <a href="article" class="nav-link text-white">
+                <a href="/admin/article" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="article" /></svg>
                     작성글 관리
                 </a>
             </li>
             <li>
-                <a href="creator" class="nav-link text-white">
+                <a href="/admin/creator" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="creator" /></svg>
                     크리에이터 관리
                 </a>
             </li>
             <li>
-                <a href="place" class="nav-link text-white">
+                <a href="/admin/place" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="place" /></svg>
                     매장 관리
                 </a>
             </li>
             <li>
-                <a href="banner" class="nav-link text-white">
+                <a href="/admin/banner" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="banner" /></svg>
                     베너관리
                 </a>
             </li>
             <li>
-                <a href="find_item" class="nav-link text-white">
+                <a href="/admin/find_item" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="find_item" /></svg>
                     FIND아이템 관리
                 </a>
             </li>
             <li>
-                <a href="goods" class="nav-link text-white">
+                <a href="/admin/goods" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="goods" /></svg>
                     상품 관리
                 </a>
             </li>
             <li>
-                <a href="member" class="nav-link text-white">
+                <a href="/admin/member" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="member" /></svg>
                     회원 관리

@@ -10,6 +10,8 @@ class Article extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('admin/Article_mdl', 'article_mdl');
+        $this->load->model('admin/Creator_mdl', 'creator_mdl');
+        $this->load->model('admin/Place_mdl', 'place_mdl');
     }
 
 	public function index()
@@ -28,14 +30,23 @@ class Article extends CI_Controller {
 		$this->load->view('admin/article_list.php', $data);
 	}
 
-	//작성글 저장
-	public function apply_article()
-	{	
-		$title = $this->input->post('title', TRUE);
-		$content = $this->input->post('content', FALSE);  // XSS 필터링하지 않음
-		$category = $this->input->post('category', TRUE);
-		$category_sub = $this->input->post('category_sub', TRUE);
-	}
+    //정렬순서 업데이트
+    public function update_sort(){
+        $id = $this->input->post('id', TRUE);
+        $sort = $this->input->post('sort', TRUE);
+        $table = "tp_articles";
+
+        update_sort($table, $id, $sort);
+    }
+
+    //사용여부 업데이트
+    public function update_use_yn(){
+        $id = $this->input->post('id', TRUE);
+        $use_yn = $this->input->post('use_yn', TRUE);
+        $table = "tp_articles";
+
+        update_use_yn($table, $id, $use_yn);
+    }
 
 	//본문 첨부 이미지 저장
 	public function upload_image() {
@@ -72,6 +83,9 @@ class Article extends CI_Controller {
         $data['category1'] = $this->article_mdl->get_category_list('P');
         $data['category2'] = $this->article_mdl->get_category_list('S');
 
+        $data['creator'] = $this->creator_mdl->get_creator_list();
+        $data['place'] = $this->place_mdl->get_place_list();
+
         $this->load->view('admin/layout/header.php');
         $this->load->view('admin/article_apply.php', $data);
 	}
@@ -92,8 +106,12 @@ class Article extends CI_Controller {
         }
         
         $data['info'] = $this->article_mdl->get_article_info($id);
+
         $data['category1'] = $this->article_mdl->get_category_list('P');
         $data['category2'] = $this->article_mdl->get_category_list('S');
+
+        $data['creator'] = $this->creator_mdl->get_creator_list();
+        $data['place'] = $this->place_mdl->get_place_list();
 
         if (!empty($data)) {
             
@@ -117,7 +135,7 @@ class Article extends CI_Controller {
             $id = $this->input->post('id', FALSE);
             $title = $this->input->post('title', TRUE);
             $tag = $this->input->post('tag', TRUE);
-            $head_content = $this->input->post('head_content', TRUE);
+            //$head_content = $this->input->post('head_content', TRUE);
             $content = $this->input->post('content', FALSE);  // XSS 필터링하지 않음
             $category1 = $this->input->post('category1', TRUE); //대분류카테고리
             $category2 = $this->input->post('category2', TRUE); //소분류 카테고리
@@ -131,38 +149,36 @@ class Article extends CI_Controller {
                 exit;
             }
 
-            // 대표 이미지 업로드 처리
-            $banner_image = null;
-            if (!empty($_FILES['banner_image']['name'])) 
-            { 
-                $config['upload_path'] = 'images/article/';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif';
-                $config['file_name']     = $this->generate_unique_filename(); // 파일명 생성 함수 호출
-                $config['overwrite']     = TRUE; // 기존 파일 덮어쓰기
-                //$config['max_size'] = 2048; // 2MB
+            // // 대표 이미지 업로드 처리
+            // $banner_image = null;
+            // if (!empty($_FILES['banner_image']['name'])) 
+            // { 
+            //     $config['upload_path'] = 'images/article/';
+            //     $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            //     $config['file_name']     = $this->generate_unique_filename(); // 파일명 생성 함수 호출
+            //     $config['overwrite']     = TRUE; // 기존 파일 덮어쓰기
+            //     //$config['max_size'] = 2048; // 2MB
 
-                $this->load->library('upload', $config);
-                //config 초기화
-                $this->upload->initialize($config);
+            //     $this->load->library('upload', $config);
+            //     //config 초기화
+            //     $this->upload->initialize($config);
 
-                if ($this->upload->do_upload('banner_image')) {
+            //     if ($this->upload->do_upload('banner_image')) {
 
-                    $banner_data = $this->upload->data();
+            //         $banner_data = $this->upload->data();
 
-                    $banner_image = $banner_data['file_name'];
+            //         $banner_image = $banner_data['file_name'];
 
-                } else {
-                    $result['msg'] = "이미지 업로드에 실패하였습니다";
-                    echo json_encode($result);
-                    return;
-                }
-            }
-            else
-            {
-                $banner_image = $article['banner_image'];
-            }
-
-            print_r($banner_image);
+            //     } else {
+            //         $result['msg'] = "이미지 업로드에 실패하였습니다";
+            //         echo json_encode($result);
+            //         return;
+            //     }
+            // }
+            // else
+            // {
+            //     $banner_image = $article['banner_image'];
+            // }
 
             // 썸네일 업로드 처리
             $thumbnail_file = null;
@@ -212,9 +228,6 @@ class Article extends CI_Controller {
                 'regdate'        => date('Y-m-d H:i:s'),
             );
 
-            print_r($data);
-            exit;
-
             //id값 있으면 update
             if(!empty($id))
             {
@@ -233,6 +246,7 @@ class Article extends CI_Controller {
             //id값 없으면 insert
             else
             {
+                $data['use_yn'] = 'N'; //새 글작성시 비노출로 저장 
                 $res = $this->article_mdl->insert_articles($data);
 
                 if($res)

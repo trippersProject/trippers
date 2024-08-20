@@ -9,7 +9,7 @@
                 <input type="text" name="name" id="name" class="form-control" value="<?= $info['name'];?>">
             <hr>
 
-            <h4>소모포인트</h4>
+            <h4>응모시 소모 포인트</h4>
                 <input type="text" name="use_point" id="use_point" class="form-control w-25" value="<?= $info['use_point'];?>">
             <hr>
 
@@ -26,9 +26,14 @@
 
             <hr>
 
-            <h4>FIND ITEM 소개</h4>
+            <h4>FIND ITEM 간략소개(배너 노출)</h4>
             <!-- 에디터 -->
-                <textarea id="summernote" name="content"><?= $info['content'];?></textarea>
+                <textarea class="summernote" id="content_sub" name="content_sub"><?= $info['content_sub'];?></textarea>
+            <hr>
+
+            <h4>FIND ITEM 소개(본문)</h4>
+            <!-- 에디터 -->
+                <textarea class="summernote" id="content" name="content"><?= $info['content'];?></textarea>
             <hr>
         </div>
         <br/>
@@ -39,7 +44,7 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('#summernote').summernote({
+        $('.summernote').summernote({
             tabsize: 2,
             height: 500,
             lang: "ko-KR",
@@ -52,13 +57,13 @@
                 ['table', ['table']], // 테이블 삽입 옵션
                 ['para', ['ul', 'ol', 'paragraph']], // 문단 스타일, 순서 없는 목록, 순서 있는 목록 옵션
                 ['height', ['height']], // 에디터 높이 조절 옵션
-                ['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
+                //['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
                 ['view', ['codeview', 'fullscreen', 'help']], // 코드 보기, 전체 화면, 도움말 옵션
             ],
             callbacks: {
                 onImageUpload: function(files) {
                     for (var i = 0; i < files.length; i++) {
-                        uploadImage(files[i]);
+                        uploadImage(files[i], $this.prop("id"));
                     }
                 }
             },
@@ -93,33 +98,13 @@
         });
     });
 
-    //본문이미지 업로드
-    function uploadImage(file) {
-        var data = new FormData();
-        data.append("file", file);
-        $.ajax({
-            url: '/admin/find_item/upload_image',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: data,
-            type: "POST",
-            success: function(url) {
-                var image = $('<img>').attr('src', url);
-                $('#summernote').summernote("insertNode", image[0]);
-            },
-            error: function(data) {
-                console.error(data.responseText);
-            }
-        });
-    }
-
     $('#submitBtn').click(function() {
         var formData = new FormData();
         formData.append('id', $('#id').val());
         formData.append('name', $('#name').val());
         formData.append('use_point', $('#use_point').val());
-        formData.append('content', $('#summernote').val());
+        formData.append('content', $('#content').val());
+        formData.append('content_sub', $('#content_sub').val());
         if($('#thumbnail').val()){
             formData.append('thumbnail', $('#thumbnail')[0].files[0]);
         }

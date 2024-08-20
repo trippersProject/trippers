@@ -12,12 +12,12 @@ class Article_mdl extends CI_Model {
     //글 리스트
     public function get_article_list() 
     {
-        $this->db->select('ta.idx as ta_idx, ta.c_id as ta_c_id, ta.category1 as ta_category, 
-                           ta.thumbnail as ta_thumbnail, ta.title as ta_title, ta.sort as ta_sort, 
+        $this->db->select('ta.id as ta_id, ta.c_id as ta_c_id, ta.category1 as ta_category, 
+                           ta.thumbnail as ta_thumbnail, ta.title as ta_title, ta.sort as ta_sort, ta.use_yn as ta_use_yn,
                            ta.regdate as ta_regdate, tc.name as tc_name');
         $this->db->from('tp_articles ta');
         $this->db->join('tp_category tc', 'tc.id = ta.category1');
-        $this->db->order_by('idx', 'DESC');
+        $this->db->order_by('ta.id', 'DESC');
 
         $query = $this->db->get();
 
@@ -29,7 +29,7 @@ class Article_mdl extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('tp_articles');
-        $this->db->where('idx', $idx);
+        $this->db->where('id', $idx);
 
         $query = $this->db->get();
 
@@ -58,7 +58,7 @@ class Article_mdl extends CI_Model {
     public function update_articles($idx, $data) {
         $this->db->trans_begin();
 
-        $this->db->where('idx', $idx);
+        $this->db->where('id', $idx);
         $this->db->update('tp_articles', $data);
 
         if ($this->db->trans_status() === FALSE) {

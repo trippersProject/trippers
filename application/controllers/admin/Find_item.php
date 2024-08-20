@@ -61,28 +61,6 @@ class Find_item extends CI_Controller {
         }
     }
 
-	//본문 첨부 이미지 저장
-	public function upload_image() {
-        if ($_FILES['file']['name']) {
-            $config['upload_path'] =  "images/find_item/";
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $config['file_name']     = $this->generate_unique_filename(); // 파일명 생성 함수 호출
-            $config['overwrite']     = TRUE; // 기존 파일 덮어쓰기
-            //$config['max_size'] = 2048; // 2MB
-
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload('file')) {
-                $error = $this->upload->display_errors();
-                echo json_encode(['error' => $error]);
-            } else {
-                $data = $this->upload->data();
-                $file_path = base_url("images/find_item/".$data['file_name']);
-                echo $file_path;
-            }
-        }
-    }
-
     private function generate_unique_filename() {
         // 현재 시간과 랜덤 숫자를 조합하여 고유한 파일명 생성
         return date('YmdHis') . '_' . rand(1000, 9999);
@@ -137,6 +115,7 @@ class Find_item extends CI_Controller {
             $name = $this->input->post('name', TRUE);
             $use_point = $this->input->post('use_point', TRUE);
             $content = $this->input->post('content', FALSE);
+            $content_sub = $this->input->post('content_sub', FALSE);
             
             $find_item = $this->find_item_mdl->get_find_item_info($id);
 
@@ -180,6 +159,7 @@ class Find_item extends CI_Controller {
                 'name'          => $name,
                 'use_point'     => $use_point,
                 'content'       => $content,
+                'content_sub'   => $content_sub,
                 'thumbnail'     => $thumbnail,
                 'regdate'       => date('Y-m-d H:i:s'),
             );

@@ -46,7 +46,7 @@ $banner_category = $this->config->item('banner_category');
 </main>
 </body>
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
     // sort 값이 변경되었을 때
     $('.sort-input').on('change', function() {
         var id = $(this).data('id');
