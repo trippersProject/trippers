@@ -1,5 +1,20 @@
 <?php include_once("layout/header.php")?>
 <style>
+
+  .custom-btn {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    border-radius: 0; /* Remove rounded corners to make the button rectangular */
+    border: none; /* Remove any default border */
+    padding: 10px; /* Add padding for a better look */
+    text-transform: uppercase; /* Uppercase text for consistency */
+    font-weight: bold; /* Bold text */
+  }
+
+  .custom-btn:hover {
+    background-color: #333; /* Slightly lighter black on hover */
+  }
+
   a {
     color: black; /* 링크 색깔을 검은색으로 설정 */
     text-decoration: underline;
@@ -51,6 +66,17 @@
     margin: 0;
   }
 
+  .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 2px;
+    background-color: #f0f0f0; /* Light grey background */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Slightly rounded corners, adjust as needed */
+    font-size: 14px;
+    color: #000; /* Black text color */
+  }
+
   .centered-text-container {
     display: flex;
     justify-content: center; /* 가로 방향 중앙 정렬 */
@@ -81,7 +107,47 @@
     bottom: 0;
     left: 0;
   }
+
+  .centered-text-find-item-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* 세로 방향 중앙 정렬 */
+    width: 100%;
+    height: 100px; /* 높이 조정 */
+    position: relative; /* 부모 컨테이너에서 상대 위치 설정 */
+  }
+
+  .centered-text-find-item {
+    text-align: center; /* 텍스트를 화면 중앙에 위치 */
+    position: relative; /* 밑줄을 위한 상대 위치 지정 */
+    display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
+    padding-bottom: 5px; /* 밑줄과 텍스트 간격 조정 */
+    font-weight: 800;
+    font-size: 24px;
+  }
   
+  .centered-text-find-item::after {
+    content: ""; /* 가상 요소 생성 */
+    display: block;
+    width: 100%; /* 밑줄의 길이 */
+    height: 4px; /* 밑줄의 두께 */
+    background-color: black; /* 밑줄 색상 */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .swiper-find-item-detail .swiper-wrapper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+  }
+
+  .swiper-find-item-detail .swiper-wrapper .swiper-slide img {
+    height: 700px;
+    object-fit: cover; /* 이미지를 부모 요소에 맞게 크기 조정 */
+  }
   
 
   /* Swiper 카드 슬라이드 스타일 */
@@ -149,10 +215,6 @@
         <?php endforeach; ?>
       </div>
 
-      <!-- If we need navigation buttons -->
-      <div class="swiper-button-prev swiper-main-prev"></div>
-      <div class="swiper-button-next swiper-main-next"></div>
-
       <!-- If we need pagination -->
       <div class="swiper-pagination swiper-main-pagination"></div>
     </div>
@@ -180,7 +242,7 @@
                   $tags = explode("#", $list['tag']);
                   for($i = 1; $i < count($tags); $i++): 
                 ?>
-                  <h6><span class="badge bg-secondary"><?php echo $tags[$i]; ?></span></h6>
+                  <h6><span class="badge"><?php echo $tags[$i]; ?></span></h6>
                 <?php endfor; ?>
               </div>
             </div>
@@ -204,10 +266,6 @@
         </div>
         <?php endforeach; ?>
       </div>
-
-      <!-- If we need navigation buttons -->
-      <div class="swiper-button-prev swiper-main-prev2"></div>
-      <div class="swiper-button-next swiper-main-next2"></div>
 
       <!-- If we need pagination -->
       <div class="swiper-pagination swiper-main-pagination2"></div>
@@ -236,7 +294,7 @@
                   $tags = explode("#", $list['tag']);
                   for($i = 1; $i < count($tags); $i++): 
                 ?>
-                  <h6><span class="badge bg-secondary"><?php echo $tags[$i]; ?></span></h6>
+                  <h6><span class="badge"><?php echo $tags[$i]; ?></span></h6>
                 <?php endfor; ?>
               </div>
             </div>
@@ -251,67 +309,31 @@
     <div class="mt-8 swiper swiper-find-item">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
-        <!-- Slides -->
+        <!-- MARK: 바로 아래 div 구조가 반복되야하는 부분 -->
+        <!-- MARK: 자세히보기 버튼 클릭 시 나오는 모달 창은 아래쪽 부분에 있음 -->
         <div class="swiper-slide row gy-4 gy-md-0">
           <div class="col-md-6">
             <div class="p-xl-5 m-xl-5">
-              <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="" class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;">
+              <img src="assets/img/mainFindItem.svg" alt="" class="rounded img-fluid w-100 fit-cover" style="min-height: 600px;">
             </div>
           </div>
           <div class="col-md-6 d-md-flex align-items-md-center">
             <div style="max-width: 350px;">
-              <h2 class="text-uppercase fw-bold">Biben dum <br /> fringi dictum, augue purus </h2>
-              <p class="my-3">Tincidunt laoreet leo, adipiscing taciti tempor. Primis senectus sapien, risus donec ad fusce augue interdum.</p>
-              <a href="" class="btn btn-primary btn-lg me-2">Button</a>
-              <a href="" class="btn btn-outline-primary btn-lg">Button</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="swiper-slide row gy-4 gy-md-0">
-          <div class="col-md-6">
-            <div class="p-xl-5 m-xl-5">
-              <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="" class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;">
-            </div>
-          </div>
-          <div class="col-md-6 d-md-flex align-items-md-center">
-            <div style="max-width: 350px;">
-              <h2 class="text-uppercase fw-bold">Biben dum <br /> fringi dictum, augue purus </h2>
-              <p class="my-3">Tincidunt laoreet leo, adipiscing taciti tempor. Primis senectus sapien, risus donec ad fusce augue interdum.</p>
-              <a href="" class="btn btn-primary btn-lg me-2">Button</a>
-              <a href="" class="btn btn-outline-primary btn-lg">Button</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="swiper-slide row gy-4 gy-md-0">
-          <div class="col-md-6">
-            <div class="p-xl-5 m-xl-5">
-              <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="" class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;">
-            </div>
-          </div>
-          <div class="col-md-6 d-md-flex align-items-md-center">
-            <div style="max-width: 350px;">
-              <h2 class="text-uppercase fw-bold">Biben dum <br /> fringi dictum, augue purus </h2>
-              <p class="my-3">Tincidunt laoreet leo, adipiscing taciti tempor. Primis senectus sapien, risus donec ad fusce augue interdum.</p>
-              <a href="" class="btn btn-primary btn-lg me-2">Button</a>
-              <a href="" class="btn btn-outline-primary btn-lg">Button</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="swiper-slide row gy-4 gy-md-0">
-          <div class="col-md-6">
-            <div class="p-xl-5 m-xl-5">
-              <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="" class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;">
-            </div>
-          </div>
-          <div class="col-md-6 d-md-flex align-items-md-center">
-            <div style="max-width: 350px;">
-              <h2 class="text-uppercase fw-bold">Biben dum <br /> fringi dictum, augue purus </h2>
-              <p class="my-3">Tincidunt laoreet leo, adipiscing taciti tempor. Primis senectus sapien, risus donec ad fusce augue interdum.</p>
-              <a href="" class="btn btn-primary btn-lg me-2">Button</a>
-              <a href="" class="btn btn-outline-primary btn-lg">Button</a>
+              <div class="centered-text-find-item-container mb-4">
+                <div class="centered-text-find-item">FIND 아이템</div>
+              </div>
+              <h6>제주를 닮은, 제주를 담은 향기</h6>
+              <h2 class="fw-bold mb-5">어텀제주 메모리퍼퓸</h2>
+              <p class="my-3 mb-5">
+                제주에서의 소중한 추억들을
+                <br />
+                듬뽁 담은 향기로 만나보는 내 손 안에 작은 제주
+                <br /><br />
+                제주를 닮은 향기로 나만의 공간을 채워보세요
+              </p>
+              <button type="button" class="btn custom-btn w-50" data-bs-toggle="modal" data-bs-target="#mainFindItemModal">
+                자세히보기
+              </button>
             </div>
           </div>
         </div>
@@ -320,10 +342,74 @@
       <!-- If we need navigation buttons -->
       <div class="swiper-button-prev swiper-find-item-prev"></div>
       <div class="swiper-button-next swiper-find-item-next"></div>
-
-      <!-- If we need pagination -->
-      <!-- <div class="swiper-pagination swiper-find-item-pagination"></div> -->
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade w-100" id="mainFindItemModal" tabindex="-1" aria-labelledby="mainFindItemModalLabel" aria-hidden="true">
+      <div class="modal-dialog d-flex justify-content-center align-items-center" style="max-width: 100%;">
+        <div class="modal-content">
+          <div class="modal-body d-flex align-items-center mt-2 mb-2">
+            <div class="row gy-4 gy-md-0 mx-auto" style="width: 100%;">
+              <div class="col-md-6">
+                <div class="swiper swiper-find-item-detail" style="overflow: hidden;">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <img src="assets/img/mainFindItem.svg" alt="" class="rounded img-fluid w-100">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/img/mainFindItem.svg" alt="" class="rounded img-fluid w-100">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/img/mainFindItem.svg" alt="" class="rounded img-fluid w-100">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/img/mainFindItem.svg" alt="" class="rounded img-fluid w-100">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/img/mainFindItem.svg" alt="" class="rounded img-fluid w-100">
+                    </div>
+                  </div>
+
+                  <div class="swiper-pagination swiper-find-item-detail-pagination"></div>
+                </div>
+              </div>
+              <div class="col-md-6 d-md-flex align-items-md-center">
+                <div style="max-width: 350px;">
+                  <div class="centered-text-find-item-container mb-4">
+                    <div class="centered-text-find-item">FIND 아이템</div>
+                  </div>
+                  <h6>제주를 닮은, 제주를 담은 향기</h6>
+                  <h2 class="fw-bold mb-5">어텀제주 메모리퍼퓸</h2>
+
+                  <h6 class="fw-bold">트리퍼가 찾아낸 어텀제주</h6>
+                  <p class="my-3 mb-5">
+                    제주에서의 소중한 추억들을
+                    <br />
+                    듬뿍 담은 향기로 만나보는 내 손 안에 작은 제주
+                    <br /><br />
+                    제주를 닮은 향기로 나만의 공간을 채워보세요
+                  </p>
+
+                  <h6 class="fw-bold">이런 분들 꼭 응모하세요</h6>
+                  <ul class="my-3 mb-5">
+                    <li>제주도의 떠오르는 추억이 있으신 분</li>
+                    <li>제주를 닮은 향기로 나만의 공간을 채우실 분</li>
+                    <li>침구나 내 옷에 기분좋은 향이 필요하신 분</li>
+                    <li>어텀제주 제품으로 일상 속 여행을 떠나보실 분</li>
+                  </ul>
+                  <button type="button" class="btn custom-btn w-50">
+                    응모하기
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
 
     <div class="container">
       <img src="assets/img/tripletter.png" alt="Trip Letter Image" class="img-fluid d-block mx-auto">
@@ -342,10 +428,6 @@
         loop: true,
         pagination: {
           el: '.swiper-main-pagination',
-        },
-        navigation: {
-          nextEl: '.swiper-main-next',
-          prevEl: '.swiper-main-prev',
         },
       });
 
@@ -375,10 +457,6 @@
         pagination: {
           el: '.swiper-main-pagination2',
         },
-        navigation: {
-          nextEl: '.swiper-main-next2',
-          prevEl: '.swiper-main-prev2',
-        },
       });
 
       let dongnaeSwiper = new Swiper('.dongnae-swiper', {
@@ -406,7 +484,6 @@
         spaceBetween: 30, // 슬라이드 간의 간격
         loop: true, // 무한 루프
         direction: 'horizontal',
-        loop: true,
         pagination: {
           el: '.swiper-find-item-pagination',
         },
@@ -415,6 +492,18 @@
           prevEl: '.swiper-find-item-prev',
         },
       });
+
+      let swiperFindItemDetail = new Swiper('.swiper-find-item-detail', {
+        slidesPerView: 1, // 한 번에 보여줄 슬라이드 수
+        spaceBetween: 30, // 슬라이드 간의 간격
+        loop: true, // 무한 루프
+        direction: 'horizontal',
+        pagination: {
+          el: '.swiper-find-item-detail-pagination',
+          clickable: true,
+        },
+      });
+
     </script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   </body>
