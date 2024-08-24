@@ -3,15 +3,16 @@
     <hr/>
     <br/>
     <form method="post" id="articleForm">
-        <input type="hidden" name="id" id="id" value="<?php echo $info['id']?>">
+        <input type="hidden" name="id" id="id" value="<?= $info['id']?>">
         <div>
             <h4>대분류 카테고리</h4>
             <select name="category1" id="category1" class="form-control w-25" onchange="changCategory()">
                 <?php /*foreach($category1 as $item):?>
-                    <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category1']) ? "selected" : ""?>><?php echo $item['name']?></option>
+                    <option value="<?= $item['id']?>" <?= ($item['id'] == $info['category1']) ? "selected" : ""?>><?= $item['name']?></option>
                 <?php endforeach; */?>
-                <option value="1">CREATOR</option>
-                <option value="2">DONGNAE</option>
+                <option value="">---선택---</option>
+                <option value="1" <?= ($info['category1'] == '1') ? "selected" : ""?>>CREATOR</option>
+                <option value="2" <?= ($info['category1'] == '2') ? "selected" : ""?>>DONGNAE</option>
             </select>
 
             <hr>
@@ -20,7 +21,7 @@
             <select name="category2" id="category2" class="form-control w-25">
                 <option value=''>---선택---</option>
                 <?php foreach($category2 as $item):?>
-                    <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category2']) ? "selected" : ""?>><?php echo $item['name']?></option>
+                    <option value="<?= $item['id']?>" <?= ($item['id'] == $info['category2']) ? "selected" : ""?>><?= $item['name']?></option>
                 <?php endforeach; ?>
             </select>
 
@@ -31,7 +32,7 @@
                 <select name="c_id" id="c_id" class="form-control w-25">
                     <option value="">---선택---</option>
                     <?php foreach($creator as $list):?>
-                        <option value="<?php echo $list['id']?>" <?php echo ($list['id'] == $info['c_id']) ? "selected" : ""?>><?php echo $list['name']?></option>
+                        <option value="<?= $list['id']?>" <?= ($list['id'] == $info['c_id']) ? "selected" : ""?>><?= $list['name']?></option>
                     <?php endforeach;?>
                 </select>
 
@@ -40,10 +41,10 @@
             
             <div id="place_area" style="display:none">
                 <h4>매장</h4>
-                <select name="place_id" id="place_id" class="form-control w-25">
+                <select name="p_id" id="p_id" class="form-control w-25">
                     <option value="">---선택---</option>
                     <?php foreach($place as $list):?>
-                        <option value="<?php echo $list['id']?>" <?php echo ($list['id'] == $info['p_id']) ? "selected" : ""?>><?php echo $list['name']?></option>
+                        <option value="<?= $list['id']?>" <?= ($list['id'] == $info['p_id']) ? "selected" : ""?>><?= $list['name']?></option>
                     <?php endforeach;?>
                 </select>
 
@@ -57,23 +58,18 @@
 
             <div class="container mt-5">
                 <h5>현재 대표 이미지</h5>
-                <p><?php echo $info['banner_image'];?></p>
-                <img src="<?php echo base_url(get_article_upload_path().$info['banner_image']);?>" class="img-fluid" style="max-width: 30%;">
+                <p><?= $info['banner_image'];?></p>
+                <img src="<?= base_url(get_article_upload_path().$info['banner_image']);?>" class="img-fluid" style="max-width: 30%;">
             </div>
 
             <hr>
 
-            <h4>머리글</h4>
-            <!-- 에디터 -->
-                <textarea class="summernote" id="head_content" name="head_content"><?php echo $info['head_content'];?></textarea>
-            <hr>
-
             <h4>제목</h4>
-                <input type="text" name="title" id="title" class="form-control" value="<?php echo $info['title'];?>">
+                <input type="text" name="title" id="title" class="form-control" value="<?= $info['title'];?>">
             <hr>
 
             <h4>태그 ( '#' 으로 구분)</h4>
-                <input type="text" name="tag" id="tag" class="form-control w-25" value="<?php echo $info['tag'];?>">
+                <input type="text" name="tag" id="tag" class="form-control w-25" value="<?= $info['tag'];?>">
             <hr>
 
             <h4>썸네일</h4>
@@ -83,15 +79,34 @@
 
             <div class="container mt-5">
                 <h5>현재 썸네일</h5>
-                <p><?php echo $info['thumbnail'];?></p>
-                <img src="<?php echo base_url(get_article_upload_path().$info['thumbnail']);?>" class="img-fluid" style="max-width: 30%;">
+                <p><?= $info['thumbnail'];?></p>
+                <img src="<?= base_url(get_article_upload_path().$info['thumbnail']);?>" class="img-fluid" style="max-width: 30%;">
             </div>
 
             <hr>
 
             <h4>본문</h4>
             <!-- 에디터 -->
-                <textarea class="summernote" id="content" name="content"><?php echo $info['content'];?></textarea>
+                <textarea class="summernote" id="content" name="content"><?= $info['content'];?></textarea>
+            <hr>
+
+            <h4>이벤트배너 이미지</h4>
+                <input type="file" name="event_banner_img" id="event_banner_img" class="form-control w-25">
+
+            <hr>
+
+            <div class="container mt-5">
+                <h5>현재 이벤트배너</h5>
+                <p><?= $info['event_banner_img'];?></p>
+                <img src="<?= base_url(get_article_upload_path().$info['event_banner_img']);?>" class="img-fluid" style="max-width: 30%;">
+            </div>
+
+            <hr>
+
+            <h4>이벤트배너 문구</h4>
+            <!-- 에디터 -->
+                <textarea class="summernote" id="event_banner_text" name="event_banner_text"><?= $info['event_banner_text'];?></textarea>
+            <hr>
         </div>
         <br/>
         <div class="d-grid gap-2 col-6 mx-auto">
@@ -105,7 +120,7 @@
         //로드하면서 카테고리 체크
         changCategory();
         
-        $('#head_content').summernote({
+        $('#event_banner_text').summernote({
             tabsize: 2,
             height: 500,
             lang: "ko-KR",
@@ -118,7 +133,7 @@
                 ['table', ['table']], // 테이블 삽입 옵션
                 ['para', ['ul', 'ol', 'paragraph']], // 문단 스타일, 순서 없는 목록, 순서 있는 목록 옵션
                 ['height', ['height']], // 에디터 높이 조절 옵션
-                ['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
+                //['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
                 ['view', ['codeview', 'fullscreen', 'help']], // 코드 보기, 전체 화면, 도움말 옵션
             ],
             callbacks: {
@@ -215,27 +230,6 @@
         });
     });
 
-    //머리글 이미지 업로드
-    function uploadHeadContnetImage(file) {
-        var data = new FormData();
-        data.append("file", file);
-        $.ajax({
-            url: '/admin/article/upload_image',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: data,
-            type: "POST",
-            success: function(url) {
-                var image = $('<img>').attr('src', url);
-                $('#head_content').summernote("insertNode", image[0]);
-            },
-            error: function(data) {
-                console.error(data.responseText);
-            }
-        });
-    }
-
     //본문이미지 업로드
     function uploadContentImage(file) {
         var data = new FormData();
@@ -260,23 +254,29 @@
     $('#submitBtn').click(function() {
         var formData = new FormData();
         formData.append('id', $('#id').val());
-        formData.append('title', $('#title').val());
-        formData.append('tag', $('#tag').val());
-        formData.append('head_content', $('#head_content').val());
-        formData.append('content', $('#content').val());
-        formData.append('category1', $('#category1').val());
-        if($('#category2').val()){  
-            formData.append('category2', $('#category2').val());
+        if($('#p_id').val()){
+            formData.append('c_id', $('#c_id').val());
         }
         if($('#c_id').val()){
             formData.append('c_id', $('#c_id').val());
         }
+        formData.append('category1', $('#category1').val());
+        if($('#category2').val()){  
+            formData.append('category2', $('#category2').val());
+        }
         if($('#banner_image').val()){
-            formData.append('banner_image', $('#banner_image')[0].files[0]);
+        formData.append('banner_image', $('#banner_image')[0].files[0]);
         }
         if($('#thumbnail').val()){
             formData.append('thumbnail', $('#thumbnail')[0].files[0]);
         }
+        formData.append('title', $('#title').val());
+        formData.append('content', $('#content').val());
+        formData.append('tag', $('#tag').val());
+        if($('#event_banner_img').val()){
+            formData.append('event_banner_img', $('#event_banner_img')[0].files[0]);
+        }
+        formData.append('event_banner_text', $('#event_banner_text').val());
 
         $.ajax({
             url: '/admin/article/regi_article',

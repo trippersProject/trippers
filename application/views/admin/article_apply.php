@@ -3,10 +3,14 @@
     <hr/>
     <br/>
     <form method="post" id="articleForm">
+        <input type="hidden" name="id" id="id" value="">
         <div>
             <h4>대분류 카테고리</h4>
             <select name="category1" id="category1" class="form-control w-25" onchange="changCategory()">
-                <option value=''>---선택---</option>
+                <?php /*foreach($category1 as $item):?>
+                    <option value="<?php echo $item['id']?>" <?php echo ($item['id'] == $info['category1']) ? "selected" : ""?>><?php echo $item['name']?></option>
+                <?php endforeach; */?>
+                <option value="">---선택---</option>
                 <option value="1">CREATOR</option>
                 <option value="2">DONGNAE</option>
             </select>
@@ -37,7 +41,7 @@
             
             <div id="place_area" style="display:none">
                 <h4>매장</h4>
-                <select name="place_id" id="place_id" class="form-control w-25">
+                <select name="p_id" id="p_id" class="form-control w-25">
                     <option value="">---선택---</option>
                     <?php foreach($place as $list):?>
                         <option value="<?php echo $list['id']?>"><?php echo $list['name']?></option>
@@ -49,11 +53,7 @@
 
             <h4>대표 이미지</h4>
                 <input type="file" name="banner_image" id="banner_image" class="form-control w-25">
-            <hr>
 
-            <h4>머리글</h4>
-            <!-- 에디터 -->
-                <textarea class="summernote" id="head_content" name="head_content"></textarea>
             <hr>
 
             <h4>제목</h4>
@@ -66,23 +66,37 @@
 
             <h4>썸네일</h4>
                 <input type="file" name="thumbnail" id="thumbnail" class="form-control w-25">
+
             <hr>
 
             <h4>본문</h4>
             <!-- 에디터 -->
                 <textarea class="summernote" id="content" name="content"></textarea>
             <hr>
+
+            <h4>이벤트배너 이미지</h4>
+                <input type="file" name="event_banner_img" id="event_banner_img" class="form-control w-25">
+
+            <hr>
+
+            <h4>이벤트배너 문구</h4>
+            <!-- 에디터 -->
+                <textarea class="summernote" id="event_banner_text" name="event_banner_text"></textarea>
+            <hr>
         </div>
         <br/>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="button" id="submitBtn" class="btn btn-primary btn-lg">저장</button>
+            <button type="button" id="submitBtn" class="btn btn-primary btn-lg">등록</button>
         </div>
     </form>
 </div>
 <script>
     //머리글 에디터
     $(document).ready(function() {
-        $('#head_content').summernote({
+        //로드하면서 카테고리 체크
+        changCategory();
+        
+        $('#event_banner_text').summernote({
             tabsize: 2,
             height: 500,
             lang: "ko-KR",
@@ -95,7 +109,7 @@
                 ['table', ['table']], // 테이블 삽입 옵션
                 ['para', ['ul', 'ol', 'paragraph']], // 문단 스타일, 순서 없는 목록, 순서 있는 목록 옵션
                 ['height', ['height']], // 에디터 높이 조절 옵션
-                ['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
+                //['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
                 ['view', ['codeview', 'fullscreen', 'help']], // 코드 보기, 전체 화면, 도움말 옵션
             ],
             callbacks: {
@@ -192,27 +206,6 @@
         });
     });
 
-    //머리글 이미지 업로드
-    function uploadHeadContnetImage(file) {
-        var data = new FormData();
-        data.append("file", file);
-        $.ajax({
-            url: '/admin/article/upload_image',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: data,
-            type: "POST",
-            success: function(url) {
-                var image = $('<img>').attr('src', url);
-                $('#head_content').summernote("insertNode", image[0]);
-            },
-            error: function(data) {
-                console.error(data.responseText);
-            }
-        });
-    }
-
     //본문이미지 업로드
     function uploadContentImage(file) {
         var data = new FormData();
@@ -236,24 +229,30 @@
 
     $('#submitBtn').click(function() {
         var formData = new FormData();
-        formData.append('title', $('#title').val());
-        formData.append('tag', $('#tag').val());
-        formData.append('head_content', $('#head_content').val());
-        formData.append('tag', $('#tag').val());
-        formData.append('content', $('#content').val());
-        formData.append('category1', $('#category1').val());
-        if($('#category2').val()){  
-            formData.append('category2', $('#category2').val());
+        formData.append('id', $('#id').val());
+        if($('#p_id').val()){
+            formData.append('c_id', $('#c_id').val());
         }
         if($('#c_id').val()){
             formData.append('c_id', $('#c_id').val());
         }
+        formData.append('category1', $('#category1').val());
+        if($('#category2').val()){  
+            formData.append('category2', $('#category2').val());
+        }
+        if($('#banner_image').val()){
+        formData.append('banner_image', $('#banner_image')[0].files[0]);
+        }
         if($('#thumbnail').val()){
             formData.append('thumbnail', $('#thumbnail')[0].files[0]);
         }
-        if($('#banner_image').val()){
-            formData.append('banner_image', $('#banner_image')[0].files[0]);
+        formData.append('title', $('#title').val());
+        formData.append('content', $('#content').val());
+        formData.append('tag', $('#tag').val());
+        if($('#event_banner_img').val()){
+            formData.append('event_banner_img', $('#event_banner_img')[0].files[0]);
         }
+        formData.append('event_banner_text', $('#event_banner_text').val());
 
         $.ajax({
             url: '/admin/article/regi_article',
@@ -272,7 +271,7 @@
             }
         });
     });
-
+        
 function changCategory(){
     var selectedValue = $("#category1").val();
 
