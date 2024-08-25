@@ -90,6 +90,19 @@
                 <textarea class="summernote" id="content" name="content"><?= $info['content'];?></textarea>
             <hr>
 
+            <h4>하단 출처</h4>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label for="article_by" style="display: inline-block; width: 40px;"><strong>글</strong></label>
+                <input type="text" name="article_by" id="article_by" class="form-control w-25" value="<?= $info['article_by'];?>" style="display: inline-block; width: auto;">
+                
+                <label for="picture_by" style="display: inline-block; width: 40px;"><strong>사진</strong></label>
+                <input type="text" name="picture_by" id="picture_by" class="form-control w-25" value="<?= $info['picture_by'];?>" style="display: inline-block; width: auto;">
+                
+                <label for="place_by" style="display: inline-block; width: 40px;"><strong>장소</strong></label>
+                <input type="text" name="place_by" id="place_by" class="form-control w-25" value="<?= $info['place_by'];?>" style="display: inline-block; width: auto;">
+            </div>
+            <hr>
+
             <h4>이벤트배너 이미지</h4>
                 <input type="file" name="event_banner_img" id="event_banner_img" class="form-control w-25">
 
@@ -272,6 +285,9 @@
         }
         formData.append('title', $('#title').val());
         formData.append('content', $('#content').val());
+        formData.append('article_by', $('#article_by').val());
+        formData.append('picture_by', $('#picture_by').val());
+        formData.append('place_by', $('#place_by').val());
         formData.append('tag', $('#tag').val());
         if($('#event_banner_img').val()){
             formData.append('event_banner_img', $('#event_banner_img')[0].files[0]);
