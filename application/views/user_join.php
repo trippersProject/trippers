@@ -142,7 +142,7 @@
           </div>
           <div class="mb-3">
             <label for="password-verify" class="form-label">비밀번호 확인 *</label>
-            <input type="text" class="form-control custom-input" id="password-verify" style="cursor: text;" required>
+            <input type="password" class="form-control custom-input" id="password-verify" style="cursor: text;" required>
           </div>
           
           <div class="form-check custom-checkbox-container mt-5">
@@ -167,10 +167,10 @@
             </label>
           </div>
 
-          <div class="mt-5 d-grid">
-            <button type="submit" class="btn custom-btn">가입하기</button>
-          </div>
         </form>
+        <div class="mt-5 d-grid">
+          <button class="btn custom-btn" onclick="submitSignupForm()">가입하기</button>
+        </div>
       </div>
 
       <!-- 이용약관 모달 -->
@@ -216,5 +216,64 @@
 
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
   </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    //회원가입하기
+    function submitSignupForm() {
+      // 폼 데이터 수집
+      var formData = {
+        username: $('#username').val(),
+        email: $('#email').val(),
+        phone: $('#phone').val(),
+        password: $('#password').val(),
+        password_verify: $('#password-verify').val(),
+      };
 
+      // 입력 데이터 유효성 검사
+      if (!formData.username || !formData.email || !formData.phone || !formData.password || !formData.password_verify) {
+        alert('모든 필수 입력 항목을 채워주세요.');
+        return;
+      }
+
+      // 비밀번호와 비밀번호 확인 일치 여부 검사
+      if (formData.password !== formData.password_verify) {
+        alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+        return;
+      }
+
+      // 이용약관과 개인정보처리방침 체크 여부 검사
+      if (!$('#privacyAgree').is(':checked')) {
+        alert('이용약관과 개인정보처리방침에 동의하셔야 합니다.');
+        return;
+      }
+
+      // 트립레터 구독 체크 여부 검사
+      if (!$('#tripLetter').is(':checked')) {
+        alert('트립레터 구독에 동의하셔야 합니다.');
+        return;
+      }
+
+      // AJAX 요청
+      $.ajax({
+        url: '/login/join_user', // 컨트롤러의 메서드 URL로 변경하세요
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        success: function(response) {
+          // 성공 시 처리할 내용
+          if(response.success) {
+            alert('회원가입이 성공적으로 완료되었습니다.');
+            window.location.href = '/main'; // 성공 페이지로 리디렉션
+          } else {
+            alert('회원가입에 실패하였습니다: ' + response.message);
+          }
+        },
+        error: function(xhr, status, error) {
+          // 에러 발생 시 처리할 내용
+          console.error(error);
+          alert('오류가 발생했습니다. 다시 시도해 주세요.');
+        }
+      });
+    }
+  </script>
 </html>

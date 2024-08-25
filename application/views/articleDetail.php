@@ -308,12 +308,26 @@
             </p> -->
 
             <div class="sns-img-container">
-              <a href="<?=$creator['homepage_url']?>" target="_blank">
-                <img src="/assets/img/Home.svg" alt="" class="img-icon">
-              </a>
-              <a href="<?=$creator['sns_url_1']?>" target="_blank">
-                <img src="/assets/img/Instagram.svg" alt="" class="img-icon">
-              </a>
+              <?if($creator['homepage_url']){?>
+                <a href="<?=$creator['homepage_url']?>" target="_blank">
+                  <img src="/assets/img/Home.svg" alt="" class="img-icon">
+                </a>
+              <?}?>
+              <?if($creator['sns_url_1']){?>
+                <a href="<?=$creator['sns_url_1']?>" target="_blank">
+                  <img src="/assets/img/Instagram.svg" alt="" class="img-icon">
+                </a>
+              <?}?>
+              <?if($creator['sns_url_2']){?>
+                <a href="<?=$creator['sns_url_2']?>" target="_blank">
+                  <img src="/assets/img/Instagram.svg" alt="" class="img-icon">
+                </a>
+              <?}?>
+              <?if($creator['sns_url_3']){?>
+                <a href="<?=$creator['sns_url_3']?>" target="_blank">
+                  <img src="/assets/img/Instagram.svg" alt="" class="img-icon">
+                </a>
+              <?}?>
             </div>
             
             <div class="badge-container">
@@ -334,15 +348,15 @@
       
       <div class="row mt-5">
         <div class="col-md-1 fw-bold">글</div>
-        <div class="col-md-11">YES</div>
+        <div class="col-md-11"><?=$info['article_by']?></div>
       </div>
       <div class="row mt-2">
         <div class="col-md-1 fw-bold">사진</div>
-        <div class="col-md-11">트리퍼</div>
+        <div class="col-md-11"><?=$info['picture_by']?></div>
       </div>
       <div class="row mt-2">
         <div class="col-md-1 fw-bold">장소</div>
-        <div class="col-md-11">아마도책방</div>
+        <div class="col-md-11"><?=$info['place_by']?></div>
       </div>
 
       <ul class="mt-6 hero-icon">
@@ -361,13 +375,11 @@
     <div style="background-color: lightgray;">
       <div class="row">
         <div class="col-md-5 text-end">
-          <img class="rounded img-fluid w-50 fit-cover" src="/assets/img/bookstore.png" width="444" height="300" />
+          <img class="rounded img-fluid w-50 fit-cover" src="<?=get_article_upload_path(). $info['event_banner_img']?>" width="444" height="300" />
         </div>
         <div class="col-md-7 p-4 d-flex align-items-center">
           <div>
-            <h5>트리퍼가 추천하는</h5>
-            <h2 class="fw-bold mt-3">아마도책방 책방지기 체험</h2>
-            <p class="my-3">트리퍼 플랫폼 통해 예약시 20% 할인된 금액에 만나실 수 있습니다</p>
+            <?=$info['event_banner_text']?>
             <a class="btn btn-dark btn-lg mt-7" role="button" href="#">신청하기</a>
           </div>
         </div>
@@ -384,25 +396,30 @@
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide">
-          <div class="card">
-            <!-- <img src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" class="card-img-top" alt="Card Image"> -->
-            <img src="/assets/img/test1.png" class="card-img-top" alt="Card Image">
-            <div class="card-body">
-              <h6 class="card-title">DONGNAE</h6>
-              <h4 class="card-title">딱 두 시간만 먹을 수 있는 식당.</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="badge-container">
-                <h6><span class="badge">경남김해</span></h6>
-                <h6><span class="badge">칼국수</span></h6>
+        <?php foreach($article_list as $list): ?>
+          <div class="swiper-slide">
+            <div class="card" onclick="articleDetail('<?= $list['id'] ?>')">
+              <img src="<?= get_article_upload_path() . $list['thumbnail']; ?>" class="card-img-top" alt="Card Image">
+              <div class="card-body">
+                <h6 class="card-title"><?= $list['name']; ?></h6>
+                <h4 class="card-title"><?= $list['title']; ?></h4>
+                <p class="card-text"><?= strip_tags($list['content']); ?></p>
+                <div class="badge-container">
+                  <?php 
+                    $tags = explode("#", $list['tag']);
+                    for($i = 1; $i < count($tags); $i++): 
+                  ?>
+                    <h6><span class="badge"><?= $tags[$i]; ?></span></h6>
+                  <?php endfor; ?>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <?php endforeach; ?>
       </div>
       <!-- If we need pagination -->
       <!-- <div class="swiper-pagination related-pagination"></div> -->
-    </div>
+      </div>
     </div>
 
   <?php include_once("layout/footer_company_info.php")?>

@@ -70,17 +70,17 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
       <div class="card p-4 border-0" style="width: 26rem;">
         <h3 class="text-center text-uppercase mb-5">Login</h3>
-        <form>
+        <form action="/login/user_login" method="post">
           <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
-            <input type="email" class="form-control custom-input" id="email" style="cursor: text;" required>
+            <input type="email" class="form-control custom-input" id="email" name="email" style="cursor: text;" required>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">비밀번호</label>
-            <input type="password" class="form-control custom-input" id="password" style="cursor: text;" required>
+            <input type="password" class="form-control custom-input" id="password" name="password" style="cursor: text;" required>
           </div>
           <div class="d-flex mt-6 gap-2">
-            <button type="submit" class="btn custom-btn w-50" onclick="location.href='/login/user_join'">회원가입</button>
+            <button class="btn custom-btn w-50" onclick="location.href='/login/user_join'">회원가입</button>
             <button type="submit" class="btn custom-btn w-50">로그인</button>
           </div>
           <div class="mt-5 d-grid">

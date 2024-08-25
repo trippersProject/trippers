@@ -1,4 +1,4 @@
-<?php include_once("layout/header.php")?>
+<?php include_once("layout/header.php");?>
 <style>
 
   .custom-btn {
@@ -209,9 +209,9 @@
       <div class="swiper-wrapper">
         <!-- Slides -->
         <?php foreach($mt_banners as $list): ?>
-        <div class="swiper-slide">
-          <img class="w-100 d-block fixed-size" src="<?php echo get_banner_upload_path() . $list['filename_pc']; ?>" alt="Slide Image" />
-        </div>
+          <div class="swiper-slide">
+            <img class="w-100 d-block fixed-size" src="<?= get_banner_upload_path() . $list['filename_pc']; ?>" alt="Slide Image" />
+          </div>
         <?php endforeach; ?>
       </div>
 
@@ -222,6 +222,9 @@
     <div class="centered-text-container">
       <div class="centered-text">크리에이터 추천 공간</div>
     </div>
+
+    <?= "session1 : "; ?>
+    <?= print_r($this->session->userdata()); ?>
     
 
     <!-- Slider main container -->
@@ -231,18 +234,18 @@
         <!-- Slides -->
         <?php foreach($article_creator as $list): ?>
         <div class="swiper-slide">
-          <div class="card" onclick="articleDetail()">
-            <img src="<?php echo get_article_upload_path() . $list['thumbnail']; ?>" class="card-img-top" alt="Card Image">
+          <div class="card" onclick="articleDetail('<?= $list['id'] ?>')">
+            <img src="<?= get_article_upload_path() . $list['thumbnail']; ?>" class="card-img-top" alt="Card Image">
             <div class="card-body">
-              <h6 class="card-title"><?php echo $list['name']; ?></h6>
-              <h4 class="card-title"><?php echo $list['title']; ?></h4>
-              <p class="card-text"><?php echo strip_tags($list['content']); ?></p>
+              <h6 class="card-title"><?= $list['name']; ?></h6>
+              <h4 class="card-title"><?= $list['title']; ?></h4>
+              <p class="card-text"><?= strip_tags($list['content']); ?></p>
               <div class="badge-container">
                 <?php 
                   $tags = explode("#", $list['tag']);
                   for($i = 1; $i < count($tags); $i++): 
                 ?>
-                  <h6><span class="badge"><?php echo $tags[$i]; ?></span></h6>
+                  <h6><span class="badge"><?= $tags[$i]; ?></span></h6>
                 <?php endfor; ?>
               </div>
             </div>
@@ -262,7 +265,7 @@
         <!-- Slides -->
         <?php foreach($mb_banners as $list): ?>
         <div class="swiper-slide">
-          <img class="w-100 d-block fixed-size" src="<?php echo get_banner_upload_path() . $list['filename_pc']; ?>" alt="Slide Image" />
+          <img class="w-100 d-block fixed-size" src="<?= get_banner_upload_path() . $list['filename_pc']; ?>" alt="Slide Image" />
         </div>
         <?php endforeach; ?>
       </div>
@@ -283,18 +286,18 @@
         <!-- Slides -->
         <?php foreach($article_dongnae as $list): ?>
         <div class="swiper-slide">
-          <div class="card" onclick="articleDetail()">
-            <img src="<?php echo get_article_upload_path() . $list['thumbnail']; ?>" class="card-img-top" alt="Card Image">
+          <div class="card" onclick="articleDetail('<?= $list['id'] ?>')">
+            <img src="<?= get_article_upload_path() . $list['thumbnail']; ?>" class="card-img-top" alt="Card Image">
             <div class="card-body">
-              <h6 class="card-title"><?php echo $list['name']; ?></h6>
-              <h4 class="card-title"><?php echo $list['title']; ?></h4>
-              <p class="card-text"><?php echo strip_tags($list['content']); ?></p>
+              <h6 class="card-title"><?= $list['name']; ?></h6>
+              <h4 class="card-title"><?= $list['title']; ?></h4>
+              <p class="card-text"><?= strip_tags($list['content']); ?></p>
               <div class="badge-container">
                 <?php 
                   $tags = explode("#", $list['tag']);
                   for($i = 1; $i < count($tags); $i++): 
                 ?>
-                  <h6><span class="badge"><?php echo $tags[$i]; ?></span></h6>
+                  <h6><span class="badge"><?= $tags[$i]; ?></span></h6>
                 <?php endfor; ?>
               </div>
             </div>
@@ -312,30 +315,26 @@
         <!-- MARK: 바로 아래 div 구조가 반복되야하는 부분 -->
         <!-- MARK: 자세히보기 버튼 클릭 시 나오는 모달 창은 아래쪽 부분에 있음 -->
         <div class="swiper-slide row gy-4 gy-md-0">
-          <div class="col-md-6">
-            <div class="p-xl-5 m-xl-5">
-              <img src="assets/img/mainFindItem.svg" alt="" class="rounded img-fluid w-100 fit-cover" style="min-height: 600px;">
-            </div>
-          </div>
-          <div class="col-md-6 d-md-flex align-items-md-center">
-            <div style="max-width: 350px;">
-              <div class="centered-text-find-item-container mb-4">
-                <div class="centered-text-find-item">FIND 아이템</div>
+          <!-- FIND ITEM 리스트 -->
+          <?php foreach($find_item as $list): ?>
+            <div class="d-flex justify-content-center align-items-center mt-5" style="background-color: #F5F5F5;">
+              <div class="row w-100">
+                <div class="col-md-6">
+                  <img src="<?= get_find_item_upload_path() .$list['thumbnail']?>" alt="" class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;">
+                </div>
+                <div class="col-md-6 d-md-flex align-items-md-center flex-start ps-5">
+                  <div style="max-width: 900px;">
+                    <h2 class="fw-bold"><?= $list['name']?></h2>
+                    <p class="my-3 lh-lg">
+                      <?= $list['content_sub']?>
+                    </p>
+                    <a href="" class="btn custom-btn btn-lg me-2" onclick="showEventModal()">자세히보기</a>
+                  </div>
+                </div>
               </div>
-              <h6>제주를 닮은, 제주를 담은 향기</h6>
-              <h2 class="fw-bold mb-5">어텀제주 메모리퍼퓸</h2>
-              <p class="my-3 mb-5">
-                제주에서의 소중한 추억들을
-                <br />
-                듬뽁 담은 향기로 만나보는 내 손 안에 작은 제주
-                <br /><br />
-                제주를 닮은 향기로 나만의 공간을 채워보세요
-              </p>
-              <button type="button" class="btn custom-btn w-50" data-bs-toggle="modal" data-bs-target="#mainFindItemModal">
-                자세히보기
-              </button>
             </div>
-          </div>
+          <?php endforeach; ?>
+          <!-- //FIND ITEM 리스트 -->
         </div>
       </div>
 
@@ -345,7 +344,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade w-100" id="mainFindItemModal" tabindex="-1" aria-labelledby="mainFindItemModalLabel" aria-hidden="true">
+    <div class="modal fade w-100" id="mainFindItemModal" tabindex="-1" aria-labelledby="mainFindItemModalLabel">
       <div class="modal-dialog d-flex justify-content-center align-items-center" style="max-width: 100%;">
         <div class="modal-content">
           <div class="modal-body d-flex align-items-center mt-2 mb-2">
@@ -409,9 +408,7 @@
     </div>
 
 
-
-
-    <div class="container">
+    <div class="container mt-8">
       <img src="assets/img/tripletter.png" alt="Trip Letter Image" class="img-fluid d-block mx-auto">
     </div>
 
@@ -419,8 +416,9 @@
 
     <script src="assets/js/swiper.js"></script>
     <script>
-      function articleDetail() {
-        location.href = "/main/articleDetail";
+      //글 상세 페이지 이동
+      function articleDetail(id) {
+        location.href = "/main/articleDetail?id="+id;
       }
 
       let swiperMain = new Swiper('.swiper-main', {
@@ -503,6 +501,21 @@
           clickable: true,
         },
       });
+
+      //FIND ITEM 자세히보기 클릭시 팝업노출 
+      function showEventModal() {
+        // 모달 요소를 가져옵니다.
+        var modal = document.getElementById('mainFindItemModal');
+
+        // aria-hidden 속성을 false로 변경합니다.
+        modal.setAttribute('aria-hidden', 'false');
+
+        // 모달을 보여주기 위해 'show' 클래스를 추가합니다.
+        modal.classList.add('show');
+
+        // 모달의 display 속성을 'block'으로 변경하여 화면에 표시되도록 합니다.
+        modal.style.display = 'block';
+      }
 
     </script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
